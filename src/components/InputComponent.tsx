@@ -1,7 +1,7 @@
 type InputProps = {
   className: string;
-  type: string;
   text: string;
+  type?: string;
 };
 
 export const InputComponent = (props: InputProps) => {

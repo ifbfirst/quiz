@@ -25,7 +25,6 @@ function App() {
           <InputComponent
             className={'input-number'}
             text={'Enter number questions from 5 to 15'}
-            type={'text'}
           />
           <SelectComponent
             className={'select-category'}
