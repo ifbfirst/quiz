@@ -1,12 +1,14 @@
 import './App.css';
-import Category from './components/Category';
-import Difficulty from './components/Difficulty';
-import NumberQuestions from './components/NumberQuestions';
 import Quiz from './components/Quiz';
-import StarsButton from './components/StarsButton';
-import StartButton from './components/StartButton';
-import Time from './components/Time';
-import Type from './components/Type';
+import {ButtonComponent } from './components/ButtonComponent';
+import {
+  categoryOptions,
+  difficultyOptions,
+  timeOptions,
+  typeOptions,
+} from './constants';
+import { InputComponent } from './components/InputComponent';
+import { SelectComponent } from './components/SelectComponent';
 
 function App() {
   return (
@@ -20,17 +22,36 @@ function App() {
             <i className="fa-solid fa-gear"></i>
             <h4>settings</h4>
           </div>
-          <NumberQuestions />
-          <Category />
-          <Difficulty />
-          <Time />
-          <Type />
+          <InputComponent
+            className={'input-number'}
+            text={'Enter number questions from 5 to 15'}
+          />
+          <SelectComponent
+            className={'select-category'}
+            options={categoryOptions}
+            text={'category'}
+          />
+          <SelectComponent
+            className={'select-difficulty'}
+            options={difficultyOptions}
+            text={'difficulty'}
+          />
+          <SelectComponent
+            className={'select-time'}
+            options={timeOptions}
+            text={'time'}
+          />
+          <SelectComponent
+            className={'select-difficulty'}
+            options={typeOptions}
+            text={'type'}
+          />
         </section>
         <section className="quiz">
           <Quiz />
           <div className="buttons">
-            <StarsButton />
-            <StartButton />
+            <ButtonComponent className={'stars-btn'} text={'See my stats'} />
+            <ButtonComponent className={'start-btn'} text={'Start quiz'} />
           </div>
         </section>
       </main>
