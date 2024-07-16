@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "format:fix": "prettier --write .",
-    "prepare": "cd .. && husky class-components/.husky"
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "prepare": "husky"
   },
   "dependencies": {
     "query-string": "^9.0.0",

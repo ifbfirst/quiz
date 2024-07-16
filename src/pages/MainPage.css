@@ -1,0 +1,62 @@
+.main {
+  background-color: var(--main-light);
+  min-height: 100vh;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.settings {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 0.8em;
+  border-right: 1px solid var(--main-dark);
+}
+.settings-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  gap: 10px;
+}
+.settings select,
+.settings input {
+  margin-top: 5px;
+  padding: 5px;
+  width: 330px;
+  height: 40px;
+  font-size: 1em;
+  cursor: pointer;
+}
+.settings i {
+  font-size: 1.5em;
+  color: var(--main-dark);
+}
+.buttons-main-wrapper {
+  width: 75%;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.radio-btn,
+.radio-btn label {
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+@media (max-width: 865px) {
+  .main {
+    flex-direction: column;
+    align-items: center;
+  }
+  .buttons-main-wrapper {
+    flex-direction: column;
+  }
+  .settings {
+    border: none;
+  }
+}

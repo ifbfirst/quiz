@@ -1,14 +1,17 @@
 type InputProps = {
   className: string;
-  text: string;
+  id?: string;
+  labelText?: string;
   type?: string;
+  name?: string;
+  placeholder?: string;
 };
 
 export const InputComponent = (props: InputProps) => {
   return (
     <div className={props.className}>
-      <div>{props.text}</div>
-      <input type={props.type} />
+      <input type={props.type} id={props.id} name={props.name} placeholder={props.placeholder} />
+      <label htmlFor={props.id}>{props.labelText}</label>
     </div>
   );
 };
