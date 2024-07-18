@@ -4,7 +4,7 @@ import { InputComponent } from '../components/InputComponent';
 
 export const QuizPage = () => {
   return (
-    <main className="quiz-wrapper">
+    <div className="quiz-wrapper">
       <section className="info-wrapper">
         <div className="progress-wrapper">
           <p>
@@ -27,11 +27,11 @@ export const QuizPage = () => {
         <InputComponent type="radio" className={'radio-btn'} name={'answer'} id="answer2" labelText={'3'} />
         <InputComponent type="radio" className={'radio-btn'} name={'answer'} id="answer3" labelText={'5'} />
       </section>
-      <section className="buttons-quiz-wrapper">
+      <section className="buttons-wrapper">
         <ButtonComponent className={'show-btn'} text={'Quit'} />
         <ButtonComponent className={'quit-btn'} text={'Next'} />
       </section>
-    </main>
+    </div>
   );
 };
 

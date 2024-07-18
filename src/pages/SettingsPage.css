@@ -1,19 +1,15 @@
-.main {
-  background-color: var(--main-light);
-  min-height: 100vh;
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.settings {
-  padding: 30px;
+.settings-wrapper {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  align-items: center;
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   font-size: 0.8em;
-  border-right: 1px solid var(--main-dark);
 }
 .settings-heading {
   display: flex;
@@ -26,7 +22,7 @@
 .settings input {
   margin-top: 5px;
   padding: 5px;
-  width: 330px;
+  width: 300px;
   height: 40px;
   font-size: 1em;
   cursor: pointer;
@@ -35,7 +31,8 @@
   font-size: 1.5em;
   color: var(--main-dark);
 }
-.buttons-main-wrapper {
+.buttons-wrapper {
+  margin-top: 15px;
   width: 75%;
   display: flex;
   gap: 20px;

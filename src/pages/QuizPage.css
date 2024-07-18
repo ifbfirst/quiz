@@ -1,16 +1,10 @@
 .quiz-wrapper {
-  background-color: var(--main-light);
-  font-size: 1.2em;
-  padding: 40px;
   display: flex;
   flex-direction: column;
-  flex-direction: column;
-  gap: 50px;
-  border: 1px solid var(--main-light);
+  gap: 70px;
 }
 
 .question-wrapper {
-  padding: 20px;
   align-self: center;
 }
 
@@ -27,7 +21,7 @@
   color: var(--main-dark);
 }
 
-.buttons-quiz-wrapper {
+.buttons-wrapper {
   display: flex;
   gap: 20px;
   align-self: center;
@@ -47,7 +41,7 @@
 }
 
 @media (max-width: 530px) {
-  .buttons-quiz-wrapper {
+  .buttons-wrapper {
     flex-direction: column;
   }
   .quiz-wrapper {

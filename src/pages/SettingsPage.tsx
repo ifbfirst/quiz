@@ -1,12 +1,12 @@
-import './MainPage.css';
+import './SettingsPage.css';
 import { ButtonComponent } from '../components/ButtonComponent';
 import { InputComponent } from '../components/InputComponent';
 import { SelectComponent } from '../components/SelectComponent';
 import { categoryOptions, difficultyOptions, timeOptions, typeOptions } from '../constants';
 
-const MainPage = () => {
+const SettingsPage = () => {
   return (
-    <main className="main">
+    <div className="settings-wrapper">
       <section className="settings">
         <div className="settings-heading">
           <i className="fa-solid fa-gear"></i>
@@ -18,12 +18,12 @@ const MainPage = () => {
         <SelectComponent className={'select-time'} options={timeOptions} text={'time'} />
         <SelectComponent className={'select-difficulty'} options={typeOptions} text={'type'} />
       </section>
-      <section className="buttons-main-wrapper">
+      <section className="buttons-wrapper">
         <ButtonComponent className={'stars-btn'} text={'See my stats'} />
         <ButtonComponent className={'start-btn'} text={'Start quiz'} />
       </section>
-    </main>
+    </div>
   );
 };
 
-export default MainPage;
+export default SettingsPage;
