@@ -1,7 +1,7 @@
 import './App.css';
+import ResultPage from './pages/ResultPage';
 // import SettingsPage from './pages/SettingsPage';
 // import QuizPage from './pages/QuizPage';
-import StatisticsPage from './pages/StatisticsPage';
 
 function App() {
   return (
@@ -12,7 +12,15 @@ function App() {
       <main className="main">
         {/* <SettingsPage />
         <QuizPage /> */}
-        <StatisticsPage />
+        <ResultPage
+          category={'category1'}
+          difficulty={'light'}
+          type={'type1'}
+          time={'5'}
+          trueAnswer={0}
+          totalAnswer={0}
+          timeResult={'0'}
+        />
       </main>
     </div>
   );

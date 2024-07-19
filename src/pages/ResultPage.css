@@ -1,25 +1,25 @@
-.statistics-wrapper {
+.result-wrapper {
   display: flex;
   flex-direction: column;
   gap: 40px;
   align-items: center;
 }
-.statistics-wrapper i {
+.result-wrapper i {
   font-size: 2em;
   color: var(--main-dark);
 }
-.statistics-wrapper span {
+.result-wrapper span {
   font-size: 1.2em;
   color: var(--main-dark);
   font-weight: 800;
 }
-.statistics__bar {
+.result__bar {
   width: 300px;
   height: 10px;
   border: 1px solid var(--main-dark);
   border-radius: 10px;
 }
-.statistics__bar-progress {
+.result__bar-progress {
   background-color: var(--main-dark);
   width: 200px;
   height: 9px;

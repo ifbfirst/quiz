@@ -16,7 +16,7 @@ const SettingsPage = () => {
         <SelectComponent className={'select-category'} options={categoryOptions} text={'category'} />
         <SelectComponent className={'select-difficulty'} options={difficultyOptions} text={'difficulty'} />
         <SelectComponent className={'select-time'} options={timeOptions} text={'time'} />
-        <SelectComponent className={'select-difficulty'} options={typeOptions} text={'type'} />
+        <SelectComponent className={'select-type'} options={typeOptions} text={'type'} />
       </section>
       <section className="buttons-wrapper">
         <ButtonComponent className={'stars-btn'} text={'See my stats'} />
