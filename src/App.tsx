@@ -1,6 +1,7 @@
 import './App.css';
-// import MainPage from './pages/MainPage';
-import QuizPage from './pages/QuizPage';
+import ResultPage from './pages/ResultPage';
+// import SettingsPage from './pages/SettingsPage';
+// import QuizPage from './pages/QuizPage';
 
 function App() {
   return (
@@ -8,9 +9,19 @@ function App() {
       <header className="header">
         <h1>Quiz</h1>
       </header>
-
-      {/* <MainPage /> */}
-      <QuizPage />
+      <main className="main">
+        {/* <SettingsPage />
+        <QuizPage /> */}
+        <ResultPage
+          category={'category1'}
+          difficulty={'light'}
+          type={'type1'}
+          time={'5'}
+          trueAnswer={0}
+          totalAnswer={0}
+          timeResult={'0'}
+        />
+      </main>
     </div>
   );
 }
