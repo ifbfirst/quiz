@@ -64,7 +64,7 @@ const QuizPage = () => {
           }}
         />
         <ButtonComponent className={'quit-btn'} text={'Next'} onClick={nextAction} />
-        <ModalComponent isOpen={modalIsOpen} children={modalContent} />
+        <ModalComponent isOpen={modalIsOpen}>{modalContent}</ModalComponent>
       </section>
     </div>
   );

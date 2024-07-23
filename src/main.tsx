@@ -9,9 +9,12 @@ import './main.css';
 
 const router = createBrowserRouter([
   {
+    path: '*',
+    element: <ErrorPage />,
+  },
+  {
     path: '/',
     element: <SettingsPage />,
-    errorElement: <ErrorPage />,
   },
   {
     path: '/quiz',

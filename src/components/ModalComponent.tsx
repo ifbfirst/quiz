@@ -7,12 +7,13 @@ type ModalProps = {
 import classNames from 'classnames';
 
 const ModalComponent = (props: ModalProps) => {
-  const btnClass = classNames({
-    active: props.isOpen,
-    'modal-bg': true,
-  });
   return (
-    <div className={btnClass}>
+    <div
+      className={classNames({
+        active: props.isOpen,
+        'modal-bg': true,
+      })}
+    >
       <div className={'modal'}>{props.children}</div>
     </div>
   );
