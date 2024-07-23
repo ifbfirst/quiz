@@ -1,5 +1,4 @@
 import './SettingsPage.css';
-import { ButtonComponent } from '../components/ButtonComponent';
 import { InputComponent } from '../components/InputComponent';
 import { SelectComponent } from '../components/SelectComponent';
 import { categoryOptions, difficultyOptions, timeOptions, typeOptions } from '../constants';
@@ -20,11 +19,11 @@ const SettingsPage = () => {
         <SelectComponent className={'select-type'} options={typeOptions} text={'type'} />
       </section>
       <section className="buttons-wrapper">
-        <Link to={'/statistics'}>
-          <ButtonComponent className={'stars-btn'} text={'See my stats'} />
+        <Link to={'/statistics'} className={'stat-btn'}>
+          See my stats
         </Link>
-        <Link to={'/quiz'}>
-          <ButtonComponent className={'start-btn'} text={'Start quiz'} />
+        <Link to={'/quiz'} className={'start-btn'}>
+          Start quiz
         </Link>
       </section>
     </div>

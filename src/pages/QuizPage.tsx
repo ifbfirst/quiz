@@ -18,8 +18,8 @@ const QuizPage = () => {
   const modalContent = (
     <div className="modal-content">
       <h2>Are you sure you want to go out?</h2>
-      <Link to="/">
-        <ButtonComponent className={'confirm-btn'} text={'Confirm'} />
+      <Link to="/" className={'confirm-btn'}>
+        Confirm
       </Link>
       <ButtonComponent
         className={'close-btn'}

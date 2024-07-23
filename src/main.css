@@ -52,6 +52,7 @@ button {
   background-color: var(--main-dark);
   border: none;
   cursor: pointer;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 button:hover {

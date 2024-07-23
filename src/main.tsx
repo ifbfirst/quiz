@@ -16,19 +16,16 @@ const router = createBrowserRouter([
   {
     path: '/quiz',
     element: <QuizPage />,
-    errorElement: <ErrorPage />,
   },
   {
     path: '/result',
     element: (
       <ResultPage trueAnswer={0} totalAnswer={0} timeResult={''} category={''} difficulty={''} type={''} time={''} />
     ),
-    errorElement: <ErrorPage />,
   },
   {
     path: '/statistics',
     element: <StatisticsPage />,
-    errorElement: <ErrorPage />,
   },
 ]);
 

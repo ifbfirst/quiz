@@ -45,6 +45,26 @@
   padding-left: 10px;
 }
 
+.stat-btn,
+.start-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  font-size: 0.8em;
+  color: var(--text-light);
+  background-color: var(--main-dark);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.stat-btn:hover,
+.start-btn:hover {
+  background-color: var(--main-light-hover);
+}
+
 @media (max-width: 865px) {
   .main {
     flex-direction: column;
