@@ -34,6 +34,24 @@
 .radio-btn input {
   transform: scale(1.5);
 }
+
+.confirm-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  font-size: 0.8em;
+  color: var(--text-light);
+  background-color: var(--main-dark);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.confirm:hover {
+  background-color: var(--main-light-hover);
+}
 @media (max-width: 800px) {
   .quiz {
     width: 100%;
