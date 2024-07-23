@@ -1,8 +1,36 @@
 import './QuizPage.css';
 import { ButtonComponent } from '../components/ButtonComponent';
 import { InputComponent } from '../components/InputComponent';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import ModalComponent from '../components/ModalComponent';
 
-export const QuizPage = () => {
+const QuizPage = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const timer = 0;
+
+  function nextAction() {
+    if (!timer) {
+      navigate('/result');
+    }
+  }
+  const modalContent = (
+    <div className="modal-content">
+      <h2>Are you sure you want to go out?</h2>
+      <Link to="/">
+        <ButtonComponent className={'confirm-btn'} text={'Confirm'} />
+      </Link>
+      <ButtonComponent
+        className={'close-btn'}
+        text={'Close'}
+        onClick={() => {
+          setModalIsOpen(false);
+        }}
+      />
+    </div>
+  );
+
   return (
     <div className="quiz-wrapper">
       <section className="info-wrapper">
@@ -28,8 +56,15 @@ export const QuizPage = () => {
         <InputComponent type="radio" className={'radio-btn'} name={'answer'} id="answer3" labelText={'5'} />
       </section>
       <section className="buttons-wrapper">
-        <ButtonComponent className={'show-btn'} text={'Quit'} />
-        <ButtonComponent className={'quit-btn'} text={'Next'} />
+        <ButtonComponent
+          className={'quit-btn'}
+          text={'Quit'}
+          onClick={() => {
+            setModalIsOpen(true);
+          }}
+        />
+        <ButtonComponent className={'quit-btn'} text={'Next'} onClick={nextAction} />
+        <ModalComponent isOpen={modalIsOpen} children={modalContent} />
       </section>
     </div>
   );

@@ -3,6 +3,7 @@ import { ButtonComponent } from '../components/ButtonComponent';
 import { InputComponent } from '../components/InputComponent';
 import { SelectComponent } from '../components/SelectComponent';
 import { categoryOptions, difficultyOptions, timeOptions, typeOptions } from '../constants';
+import { Link } from 'react-router-dom';
 
 const SettingsPage = () => {
   return (
@@ -19,8 +20,12 @@ const SettingsPage = () => {
         <SelectComponent className={'select-type'} options={typeOptions} text={'type'} />
       </section>
       <section className="buttons-wrapper">
-        <ButtonComponent className={'stars-btn'} text={'See my stats'} />
-        <ButtonComponent className={'start-btn'} text={'Start quiz'} />
+        <Link to={'/statistics'}>
+          <ButtonComponent className={'stars-btn'} text={'See my stats'} />
+        </Link>
+        <Link to={'/quiz'}>
+          <ButtonComponent className={'start-btn'} text={'Start quiz'} />
+        </Link>
       </section>
     </div>
   );

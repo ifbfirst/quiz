@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ButtonComponent } from '../components/ButtonComponent';
 import './ResultPage.css';
 
@@ -31,8 +32,12 @@ const ResultPage = (props: ResultPageProps) => {
         <p>Time: {props.time} min</p>
       </section>
       <section className="buttons-wrapper">
-        <ButtonComponent className={'restart-btn'} text={'Restart'} />
-        <ButtonComponent className={'choice-btn'} text={'Choose another quiz'} />
+        <Link to={'/quiz'}>
+          <ButtonComponent className={'restart-btn'} text={'Restart quiz'} />
+        </Link>
+        <Link to={'/'}>
+          <ButtonComponent className={'choice-btn'} text={'Choose another quiz'} />
+        </Link>
       </section>
     </div>
   );
