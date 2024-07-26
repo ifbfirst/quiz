@@ -5,7 +5,7 @@ import { categoryOptions, difficultyOptions, timeOptions, typeOptions } from '..
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/reducers';
-import { setCategory, setCountQuestions, setDifficulty, setTime, setType } from '../store/slices';
+import { setCategory, setCountQuestions, setDifficulty, setTime, setType } from '../store/quizSlice';
 
 const SettingsPage = () => {
   const dispatch = useDispatch();

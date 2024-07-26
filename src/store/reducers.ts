@@ -1,6 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { questionsApi } from '../servises/quizApi';
-import { questionsReducer } from './slices';
+import { questionsReducer } from './quizSlice';
 
 const rootReducer = combineReducers({
   questions: questionsReducer,
