@@ -1,4 +1,10 @@
-export const timeOptions = ['1', '2', '3'];
-export const categoryOptions = ['category1', 'category2', 'category3'];
-export const difficultyOptions = ['difficulty1', 'difficulty2', 'difficulty3'];
-export const typeOptions = ['type1', 'type2', 'type3'];
+export const timeOptions = ['3', '5', '10'];
+export const categoryOptions = [
+  'General Knowledge',
+  'Entertainment: Books',
+  'Entertainment: Film',
+  'Science & Nature',
+  'Celebrities',
+];
+export const difficultyOptions = ['Easy', 'Medium', 'Hard'];
+export const typeOptions = ['Multiple Choice', 'True / False'];

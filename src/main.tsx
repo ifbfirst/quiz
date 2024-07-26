@@ -6,6 +6,8 @@ import QuizPage from './pages/QuizPage';
 import StatisticsPage from './pages/StatisticsPage';
 import ResultPage from './pages/ResultPage';
 import './main.css';
+import { Provider } from 'react-redux';
+import store from './store';
 
 const router = createBrowserRouter([
   {
@@ -38,7 +40,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <h1>Quiz</h1>
     </header>
     <main className="main">
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </main>
   </div>,
 );
