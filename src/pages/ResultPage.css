@@ -13,6 +13,9 @@
   color: var(--main-dark);
   font-weight: 800;
 }
+.result-wrapper p {
+  max-width: 1000px;
+}
 .result__bar {
   width: 300px;
   height: 10px;

@@ -1,43 +1,50 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ButtonComponent } from '../components/ButtonComponent';
 import './ResultPage.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/reducers';
+import { resetQuestionIndex, resetQuestions } from '../store/questionsSlice';
+import { resetConfig } from '../store/configSlice';
 
-type ResultPageProps = {
-  trueAnswer: number;
-  totalAnswer: number;
-  timeResult: string;
-  category: string;
-  difficulty: string;
-  type: string;
-  time: string;
-};
+const ResultPage = () => {
+  const { category, difficulty, type, time } = useSelector((state: RootState) => state.config);
+  const { questions } = useSelector((state: RootState) => state.questions);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-const ResultPage = (props: ResultPageProps) => {
+  function restartQuiz() {
+    dispatch(resetQuestionIndex());
+    dispatch(resetQuestions());
+    navigate('/quiz');
+  }
+  function chooseAnotherQuiz() {
+    dispatch(resetQuestionIndex());
+    dispatch(resetQuestions());
+    dispatch(resetConfig());
+    navigate('/');
+  }
+
   return (
     <div className="result-wrapper">
       <i className="fa-solid fa-list-check"></i>
       <p>Thank you for completing this quiz. Here are your results:</p>
       <p>
-        You answered <span>{props.trueAnswer}</span> out of <span>{props.totalAnswer}</span> questions correctly in
-        <span> {props.timeResult}</span> minutes
+        You answered <span>true answ</span> out of <span>{questions?.length}</span> questions correctly in
+        <span> result time</span> minutes
       </p>
       <p className="result__bar">
         <p className="result__bar-progress"></p>
       </p>
 
       <section className="settings-wrapper">
-        <p>Category: {props.category}</p>
-        <p>Difficulty: {props.difficulty}</p>
-        <p>Type: {props.type}</p>
-        <p>Time: {props.time} min</p>
+        <p>Category: {category}</p>
+        <p>Difficulty: {difficulty}</p>
+        <p>Type: {type}</p>
+        <p>Time: {time} min</p>
       </section>
       <section className="buttons-wrapper">
-        <Link to={'/quiz'}>
-          <ButtonComponent className={'restart-btn'} text={'Restart quiz'} />
-        </Link>
-        <Link to={'/'}>
-          <ButtonComponent className={'choice-btn'} text={'Choose another quiz'} />
-        </Link>
+        <ButtonComponent className={'restart-btn'} text={'Restart quiz'} onClick={restartQuiz} />
+        <ButtonComponent className={'choice-btn'} text={'Choose another quiz'} onClick={chooseAnotherQuiz} />
       </section>
     </div>
   );

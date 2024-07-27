@@ -1,28 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { QuestionsResponse } from '../interfaces';
 
-export interface QuizState {
+export interface ConfigState {
   countQuestions: string;
   category: string;
   difficulty: string;
   time: string;
   type: string;
-  questions?: QuestionsResponse[];
-  questionsIndex: number;
 }
 
-const initialState: QuizState = {
+const initialState: ConfigState = {
   countQuestions: '10',
   category: '9',
   difficulty: 'easy',
   time: '180',
   type: 'multiple',
-  questions: [],
-  questionsIndex: 0,
 };
 
-export const questionsSlice = createSlice({
-  name: 'quiz',
+export const configSlice = createSlice({
+  name: 'config',
   initialState,
   reducers: {
     setCountQuestions(state, action: PayloadAction<string>) {
@@ -40,12 +35,12 @@ export const questionsSlice = createSlice({
     setType(state, action: PayloadAction<string>) {
       state.type = action.payload;
     },
-    setQuestions(state, action: PayloadAction<QuestionsResponse[]>) {
-      state.questions = [...(state.questions || []), ...action.payload];
+    resetConfig() {
+      return initialState;
     },
   },
 });
 
-export const { setCountQuestions, setCategory, setDifficulty, setTime, setType, setQuestions } = questionsSlice.actions;
+export const { setCountQuestions, setCategory, setDifficulty, setTime, setType, resetConfig } = configSlice.actions;
 
-export const questionsReducer = questionsSlice.reducer;
+export const configReducer = configSlice.reducer;

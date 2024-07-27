@@ -6,13 +6,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import ModalComponent from '../components/ModalComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, useFetchQuestionsQuery } from '../store/reducers';
-import { setQuestions } from '../store/quizSlice';
+import { increaseQuestionIndex, setQuestions } from '../store/questionsSlice';
 
 const QuizPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
-  const timer = 0;
-  const { countQuestions, category, difficulty, type } = useSelector((state: RootState) => state.questions);
+  const { countQuestions, category, difficulty, type } = useSelector((state: RootState) => state.config);
+  const { questions, questionsIndex } = useSelector((state: RootState) => state.questions);
   const { data, isFetching } = useFetchQuestionsQuery({ countQuestions, category, difficulty, type });
   const dispatch = useDispatch();
 
@@ -23,8 +23,10 @@ const QuizPage = () => {
   }, [data, dispatch]);
 
   function nextAction() {
-    if (!timer) {
+    if (questionsIndex + 1 === data?.results.length) {
       navigate('/result');
+    } else {
+      dispatch(increaseQuestionIndex());
     }
   }
   const modalContent = (
@@ -46,7 +48,7 @@ const QuizPage = () => {
     return <div className="preloader" data-testid="loader"></div>;
   }
 
-  if (!data) {
+  if (!data || !questions || questions.length === 0) {
     return <div>No questions.</div>;
   }
   return (
@@ -54,7 +56,7 @@ const QuizPage = () => {
       <section className="info-wrapper">
         <div className="progress-wrapper">
           <p>
-            <i className="fa-solid fa-list-check"></i>1/{countQuestions}
+            <i className="fa-solid fa-list-check"></i> {questionsIndex + 1}/{countQuestions}
           </p>
         </div>
         <div className="time-wrapper">
@@ -65,7 +67,8 @@ const QuizPage = () => {
       </section>
       <section className="question-wrapper">
         <p>
-          <i className="fa-solid fa-clipboard-question"></i>How many eyes do bees have?
+          <i className="fa-solid fa-clipboard-question"></i>
+          {questions[questionsIndex].question}
         </p>
       </section>
       <section className="answer-wrapper">

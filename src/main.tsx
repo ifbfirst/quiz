@@ -8,29 +8,32 @@ import ResultPage from './pages/ResultPage';
 import './main.css';
 import { Provider } from 'react-redux';
 import store from './store';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const router = createBrowserRouter([
-  {
-    path: '*',
-    element: <ErrorPage />,
-  },
   {
     path: '/',
     element: <SettingsPage />,
   },
   {
     path: '/quiz',
-    element: <QuizPage />,
+    element: (
+      <ErrorBoundary>
+        <QuizPage />
+      </ErrorBoundary>
+    ),
   },
   {
     path: '/result',
-    element: (
-      <ResultPage trueAnswer={0} totalAnswer={0} timeResult={''} category={''} difficulty={''} type={''} time={''} />
-    ),
+    element: <ResultPage />,
   },
   {
     path: '/statistics',
     element: <StatisticsPage />,
+  },
+  {
+    path: '*',
+    element: <ErrorPage />,
   },
 ]);
 

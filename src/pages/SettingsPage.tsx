@@ -5,11 +5,11 @@ import { categoryOptions, difficultyOptions, timeOptions, typeOptions } from '..
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/reducers';
-import { setCategory, setCountQuestions, setDifficulty, setTime, setType } from '../store/quizSlice';
+import { setCategory, setCountQuestions, setDifficulty, setTime, setType } from '../store/configSlice';
 
 const SettingsPage = () => {
   const dispatch = useDispatch();
-  const { countQuestions, category, difficulty, time, type } = useSelector((state: RootState) => state.questions);
+  const { countQuestions, category, difficulty, time, type } = useSelector((state: RootState) => state.config);
 
   return (
     <div className="settings-wrapper">
