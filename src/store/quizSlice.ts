@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { QuestionsResponse } from '../interfaces';
 
 export interface QuizState {
   countQuestions: string;
@@ -6,18 +7,18 @@ export interface QuizState {
   difficulty: string;
   time: string;
   type: string;
-  questions: string[];
-  answers: string[];
+  questions?: QuestionsResponse[];
+  questionsIndex: number;
 }
 
 const initialState: QuizState = {
   countQuestions: '10',
-  category: 'General Knowledge',
-  difficulty: 'Easy',
+  category: '9',
+  difficulty: 'easy',
   time: '180',
-  type: 'True/False',
+  type: 'multiple',
   questions: [],
-  answers: [],
+  questionsIndex: 0,
 };
 
 export const questionsSlice = createSlice({
@@ -39,9 +40,12 @@ export const questionsSlice = createSlice({
     setType(state, action: PayloadAction<string>) {
       state.type = action.payload;
     },
+    setQuestions(state, action: PayloadAction<QuestionsResponse[]>) {
+      state.questions = [...(state.questions || []), ...action.payload];
+    },
   },
 });
 
-export const { setCountQuestions, setCategory, setDifficulty, setTime, setType } = questionsSlice.actions;
+export const { setCountQuestions, setCategory, setDifficulty, setTime, setType, setQuestions } = questionsSlice.actions;
 
 export const questionsReducer = questionsSlice.reducer;

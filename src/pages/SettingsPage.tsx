@@ -10,6 +10,7 @@ import { setCategory, setCountQuestions, setDifficulty, setTime, setType } from 
 const SettingsPage = () => {
   const dispatch = useDispatch();
   const { countQuestions, category, difficulty, time, type } = useSelector((state: RootState) => state.questions);
+
   return (
     <div className="settings-wrapper">
       <section className="settings">

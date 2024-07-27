@@ -2,10 +2,11 @@ type InputProps = {
   className: string;
   id?: string;
   text?: string;
+  labelText?: string;
   type?: string;
   name?: string;
   placeholder?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const InputComponent = (props: InputProps) => {
@@ -19,6 +20,7 @@ export const InputComponent = (props: InputProps) => {
         placeholder={props.placeholder}
         onChange={props.onChange}
       />
+      <label>{props.labelText}</label>
     </div>
   );
 };

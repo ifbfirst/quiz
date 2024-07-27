@@ -1,6 +1,6 @@
 type SelectProps = {
   className: string;
-  options: string[];
+  options: Record<string, string> | string[];
   text: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -11,8 +11,10 @@ export const SelectComponent = (props: SelectProps) => {
     <div className={props.className}>
       <div>Choose {props.text}</div>
       <select value={props.value} onChange={props.onChange}>
-        {props.options.map((option: string) => (
-          <option value={option}>{option}</option>
+        {Object.entries(props.options).map(([key, value]) => (
+          <option key={key} value={value}>
+            {key}
+          </option>
         ))}
       </select>
     </div>

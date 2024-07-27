@@ -1,14 +1,26 @@
 import './QuizPage.css';
 import { ButtonComponent } from '../components/ButtonComponent';
 import { InputComponent } from '../components/InputComponent';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ModalComponent from '../components/ModalComponent';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, useFetchQuestionsQuery } from '../store/reducers';
+import { setQuestions } from '../store/quizSlice';
 
 const QuizPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const timer = 0;
+  const { countQuestions, category, difficulty, type } = useSelector((state: RootState) => state.questions);
+  const { data, isFetching } = useFetchQuestionsQuery({ countQuestions, category, difficulty, type });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (data?.results) {
+      dispatch(setQuestions(data.results));
+    }
+  }, [data, dispatch]);
 
   function nextAction() {
     if (!timer) {
@@ -30,13 +42,19 @@ const QuizPage = () => {
       />
     </div>
   );
+  if (isFetching) {
+    return <div className="preloader" data-testid="loader"></div>;
+  }
 
+  if (!data) {
+    return <div>No questions.</div>;
+  }
   return (
     <div className="quiz-wrapper">
       <section className="info-wrapper">
         <div className="progress-wrapper">
           <p>
-            <i className="fa-solid fa-list-check"></i>1/10
+            <i className="fa-solid fa-list-check"></i>1/{countQuestions}
           </p>
         </div>
         <div className="time-wrapper">
