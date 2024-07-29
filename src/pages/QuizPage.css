@@ -6,6 +6,12 @@
 
 .question-wrapper {
   align-self: center;
+  display: flex;
+  justify-content: center;
+  min-height: 50px;
+}
+.question-wrapper p {
+  max-width: 1000px;
 }
 
 .info-wrapper {
@@ -46,7 +52,6 @@
   background-color: var(--main-dark);
   border: none;
   cursor: pointer;
-  text-decoration: none;
 }
 
 .confirm:hover {

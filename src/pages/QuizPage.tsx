@@ -2,25 +2,40 @@ import './QuizPage.css';
 import { ButtonComponent } from '../components/ButtonComponent';
 import { InputComponent } from '../components/InputComponent';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ModalComponent from '../components/ModalComponent';
+import { useDispatch } from 'react-redux';
+
+import { increaseQuestionIndex } from '../store/questionsSlice';
+import { resetConfig } from '../store/configSlice';
+import useQuiz from '../hooks';
 
 const QuizPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
-  const timer = 0;
+  const dispatch = useDispatch();
+  const { data, isFetching, questionsIndex, resetQuiz } = useQuiz();
 
   function nextAction() {
-    if (!timer) {
+    if (questionsIndex + 1 === data?.results.length) {
       navigate('/result');
+    } else {
+      dispatch(increaseQuestionIndex());
     }
   }
+
   const modalContent = (
     <div className="modal-content">
       <h2>Are you sure you want to go out?</h2>
-      <Link to="/" className={'confirm-btn'}>
-        Confirm
-      </Link>
+      <ButtonComponent
+        className={'confirm-btn'}
+        text={'Confirm'}
+        onClick={() => {
+          resetQuiz();
+          dispatch(resetConfig());
+          navigate('/');
+        }}
+      ></ButtonComponent>
       <ButtonComponent
         className={'close-btn'}
         text={'Close'}
@@ -30,13 +45,19 @@ const QuizPage = () => {
       />
     </div>
   );
+  if (isFetching) {
+    return <div className="preloader" data-testid="loader"></div>;
+  }
 
+  if (!data || data.results.length === 0) {
+    return <div>No questions.</div>;
+  }
   return (
     <div className="quiz-wrapper">
       <section className="info-wrapper">
         <div className="progress-wrapper">
           <p>
-            <i className="fa-solid fa-list-check"></i>1/10
+            <i className="fa-solid fa-list-check"></i> {questionsIndex + 1}/{data.results.length}
           </p>
         </div>
         <div className="time-wrapper">
@@ -47,7 +68,8 @@ const QuizPage = () => {
       </section>
       <section className="question-wrapper">
         <p>
-          <i className="fa-solid fa-clipboard-question"></i>How many eyes do bees have?
+          <i className="fa-solid fa-clipboard-question"></i>
+          {data.results[questionsIndex].question}
         </p>
       </section>
       <section className="answer-wrapper">

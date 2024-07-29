@@ -1,7 +1,7 @@
 .result-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 30px;
   align-items: center;
 }
 .result-wrapper i {
@@ -12,6 +12,9 @@
   font-size: 1.2em;
   color: var(--main-dark);
   font-weight: 800;
+}
+.result-wrapper p {
+  max-width: 1000px;
 }
 .result__bar {
   width: 300px;

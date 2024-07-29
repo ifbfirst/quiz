@@ -5,15 +5,16 @@
 }
 
 :root {
-  --main-dark: #4844b6;
-  --main-light: #d6d4fe;
-  --main-light-hover: #5753ce;
+  --main-dark: #2a4087;
+  --main-light: #b0cded;
+  --main-light-hover: #1c2f6f;
   --text-light: #ffffff;
 }
 
 body {
   max-width: 1200px;
   margin: 0 auto;
+  height: 100vh;
   padding: 0 30px;
   font-family: 'Courier New', Courier, monospace;
   font-size: 1.5em;
@@ -33,8 +34,10 @@ body {
 }
 .main {
   background-color: var(--main-light);
-  padding: 20px 20px 60px 20px;
+  padding: 20px 20px 40px 20px;
+  min-height: 600px;
 }
+
 .buttons-wrapper {
   margin-top: 15px;
   width: 75%;
@@ -100,4 +103,54 @@ h4 {
   gap: 20px;
   justify-content: center;
   align-items: center;
+}
+
+.preloader {
+  margin: 50px auto;
+  width: 8vmax;
+  height: 8vmax;
+  border-right: 4px solid var(--main-dark);
+  border-radius: 100%;
+  animation: spinRight 800ms linear infinite;
+}
+
+.preloader:before,
+.preloader:after {
+  content: '';
+  width: 6vmax;
+  height: 6vmax;
+  display: block;
+  position: absolute;
+  top: calc(50% - 3vmax);
+  left: calc(50% - 3vmax);
+  border-left: 3px solid var(--main-dark);
+  border-radius: 100%;
+  animation: spinLeft 800ms linear infinite;
+}
+
+.preloader:after {
+  width: 4vmax;
+  height: 4vmax;
+  top: calc(50% - 2vmax);
+  left: calc(50% - 2vmax);
+  border: 0;
+  border-right: 2px solid var(--main-dark);
+  animation: none;
+}
+@keyframes spinLeft {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(720deg);
+  }
+}
+
+@keyframes spinRight {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
 }

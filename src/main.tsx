@@ -6,12 +6,11 @@ import QuizPage from './pages/QuizPage';
 import StatisticsPage from './pages/StatisticsPage';
 import ResultPage from './pages/ResultPage';
 import './main.css';
+import { Provider } from 'react-redux';
+import store from './store';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const router = createBrowserRouter([
-  {
-    path: '*',
-    element: <ErrorPage />,
-  },
   {
     path: '/',
     element: <SettingsPage />,
@@ -22,13 +21,15 @@ const router = createBrowserRouter([
   },
   {
     path: '/result',
-    element: (
-      <ResultPage trueAnswer={0} totalAnswer={0} timeResult={''} category={''} difficulty={''} type={''} time={''} />
-    ),
+    element: <ResultPage />,
   },
   {
     path: '/statistics',
     element: <StatisticsPage />,
+  },
+  {
+    path: '*',
+    element: <ErrorPage />,
   },
 ]);
 
@@ -38,7 +39,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <h1>Quiz</h1>
     </header>
     <main className="main">
-      <RouterProvider router={router} />
+      <ErrorBoundary>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      </ErrorBoundary>
     </main>
   </div>,
 );
