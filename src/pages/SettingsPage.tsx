@@ -9,7 +9,7 @@ import { setCategory, setCountQuestions, setDifficulty, setTime, setType } from 
 
 const SettingsPage = () => {
   const dispatch = useDispatch();
-  const { countQuestions, category, difficulty, time, type } = useSelector((state: RootState) => state.config);
+  const { amount, category, difficulty, time, type } = useSelector((state: RootState) => state.config);
 
   return (
     <div className="settings-wrapper">
@@ -21,7 +21,7 @@ const SettingsPage = () => {
         <InputComponent
           className={'input-number'}
           text={'Number questions'}
-          placeholder={countQuestions}
+          placeholder={amount}
           onChange={(e) => dispatch(setCountQuestions(e.target.value))}
         />
         <SelectComponent

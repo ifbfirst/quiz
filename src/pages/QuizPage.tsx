@@ -1,26 +1,20 @@
 import './QuizPage.css';
 import { ButtonComponent } from '../components/ButtonComponent';
 import { InputComponent } from '../components/InputComponent';
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ModalComponent from '../components/ModalComponent';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, useFetchQuestionsQuery } from '../store/reducers';
-import { increaseQuestionIndex, setQuestions } from '../store/questionsSlice';
+import { useDispatch } from 'react-redux';
+
+import { increaseQuestionIndex } from '../store/questionsSlice';
+import { resetConfig } from '../store/configSlice';
+import useQuiz from '../hooks';
 
 const QuizPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
-  const { countQuestions, category, difficulty, type } = useSelector((state: RootState) => state.config);
-  const { questions, questionsIndex } = useSelector((state: RootState) => state.questions);
-  const { data, isFetching } = useFetchQuestionsQuery({ countQuestions, category, difficulty, type });
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (data?.results) {
-      dispatch(setQuestions(data.results));
-    }
-  }, [data, dispatch]);
+  const { data, isFetching, questionsIndex, resetQuiz } = useQuiz();
 
   function nextAction() {
     if (questionsIndex + 1 === data?.results.length) {
@@ -29,12 +23,19 @@ const QuizPage = () => {
       dispatch(increaseQuestionIndex());
     }
   }
+
   const modalContent = (
     <div className="modal-content">
       <h2>Are you sure you want to go out?</h2>
-      <Link to="/" className={'confirm-btn'}>
-        Confirm
-      </Link>
+      <ButtonComponent
+        className={'confirm-btn'}
+        text={'Confirm'}
+        onClick={() => {
+          resetQuiz();
+          dispatch(resetConfig());
+          navigate('/');
+        }}
+      ></ButtonComponent>
       <ButtonComponent
         className={'close-btn'}
         text={'Close'}
@@ -48,7 +49,7 @@ const QuizPage = () => {
     return <div className="preloader" data-testid="loader"></div>;
   }
 
-  if (!data || !questions || questions.length === 0) {
+  if (!data || data.results.length === 0) {
     return <div>No questions.</div>;
   }
   return (
@@ -56,7 +57,7 @@ const QuizPage = () => {
       <section className="info-wrapper">
         <div className="progress-wrapper">
           <p>
-            <i className="fa-solid fa-list-check"></i> {questionsIndex + 1}/{countQuestions}
+            <i className="fa-solid fa-list-check"></i> {questionsIndex + 1}/{data.results.length}
           </p>
         </div>
         <div className="time-wrapper">
@@ -68,7 +69,7 @@ const QuizPage = () => {
       <section className="question-wrapper">
         <p>
           <i className="fa-solid fa-clipboard-question"></i>
-          {questions[questionsIndex].question}
+          {data.results[questionsIndex].question}
         </p>
       </section>
       <section className="answer-wrapper">

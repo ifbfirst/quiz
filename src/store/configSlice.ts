@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface ConfigState {
-  countQuestions: string;
+  amount: string;
   category: string;
   difficulty: string;
   time: string;
@@ -9,7 +9,7 @@ export interface ConfigState {
 }
 
 const initialState: ConfigState = {
-  countQuestions: '10',
+  amount: '10',
   category: '9',
   difficulty: 'easy',
   time: '180',
@@ -21,7 +21,7 @@ export const configSlice = createSlice({
   initialState,
   reducers: {
     setCountQuestions(state, action: PayloadAction<string>) {
-      state.countQuestions = action.payload;
+      state.amount = action.payload;
     },
     setCategory(state, action: PayloadAction<string>) {
       state.category = action.payload;

@@ -52,7 +52,6 @@
   background-color: var(--main-dark);
   border: none;
   cursor: pointer;
-  text-decoration: none;
 }
 
 .confirm:hover {
