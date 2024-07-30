@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, useFetchQuestionsQuery } from './store/reducers';
-import { resetQuestionIndex, resetQuestions, setQuestions } from './store/questionsSlice';
+import { RootState, useFetchQuestionsQuery } from '../store/reducers';
+import { resetQuestionIndex, resetQuestions, setQuestions } from '../store/questionsSlice';
 
 const useQuiz = () => {
   const dispatch = useDispatch();
   const { amount, category, difficulty, type } = useSelector((state: RootState) => state.config);
-  const { questionsIndex } = useSelector((state: RootState) => state.questions);
+  const { questions, questionsIndex, countTrueAnswers } = useSelector((state: RootState) => state.questions);
   const { data, isFetching } = useFetchQuestionsQuery({ amount, category, difficulty, type });
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const useQuiz = () => {
     dispatch(resetQuestions());
   };
 
-  return { data, isFetching, questionsIndex, resetQuiz };
+  return { data, isFetching, questionsIndex, questions, resetQuiz, countTrueAnswers };
 };
 
 export default useQuiz;

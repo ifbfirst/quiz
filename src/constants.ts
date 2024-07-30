@@ -1,4 +1,4 @@
-export const timeOptions = { '3': '3', '5': '5', '10': '5' };
+export const timeOptions = { '3 min': '3', '5  min': '5', '10  min': '5' };
 export const categoryOptions = {
   'General Knowledge': '9',
   'Entertainment: Books': '10',
@@ -8,7 +8,7 @@ export const categoryOptions = {
   'Entertainment: Television': '14',
   'Entertainment: Video Games': '15',
   'Entertainment: Board Games': '16',
-  'Science &amp; Nature': '17',
+  'Science & Nature': '17',
   'Science: Computers': '18',
   'Science: Mathematics': '19',
   Mythology: '20',

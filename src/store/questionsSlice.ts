@@ -4,11 +4,13 @@ import { QuestionsResponse } from '../interfaces';
 export interface QuestionsState {
   questions: QuestionsResponse[];
   questionsIndex: number;
+  countTrueAnswers: number;
 }
 
 const initialState: QuestionsState = {
   questions: [],
   questionsIndex: 0,
+  countTrueAnswers: 0,
 };
 
 export const questionsSlice = createSlice({
@@ -27,9 +29,13 @@ export const questionsSlice = createSlice({
     resetQuestions(state) {
       state.questions.length = 0;
     },
+    increaseTrueAnswers(state) {
+      state.countTrueAnswers += 1;
+    },
   },
 });
 
-export const { setQuestions, increaseQuestionIndex, resetQuestionIndex, resetQuestions } = questionsSlice.actions;
+export const { setQuestions, increaseQuestionIndex, resetQuestionIndex, resetQuestions, increaseTrueAnswers } =
+  questionsSlice.actions;
 
 export const questionsReducer = questionsSlice.reducer;

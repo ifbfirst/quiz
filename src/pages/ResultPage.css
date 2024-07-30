@@ -24,7 +24,7 @@
 }
 .result__bar-progress {
   background-color: var(--main-dark);
-  width: 200px;
+
   height: 9px;
   border-radius: 15px;
   margin-left: -1px;

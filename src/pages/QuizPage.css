@@ -33,12 +33,17 @@
   align-self: center;
 }
 .radio-btn,
+.checkbox-btn label,
 .radio-btn label {
   cursor: pointer;
   margin-left: 15px;
 }
-.radio-btn input {
+.radio-btn input,
+.checkbox-btn input {
   transform: scale(1.5);
+  margin-right: 10px;
+  margin-top: 10px;
+  cursor: pointer;
 }
 
 .confirm-btn {

@@ -4,24 +4,27 @@ import './ResultPage.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/reducers';
 import { resetConfig } from '../store/configSlice';
-import useQuiz from '../hooks';
+import useQuiz from '../hooks/quizHook';
 
 const ResultPage = () => {
   const { amount, category, difficulty, type, time } = useSelector((state: RootState) => state.config);
-  const { resetQuiz } = useQuiz();
+  const { resetQuiz, countTrueAnswers } = useQuiz();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const style = {
+    width: `${(300 / +amount) * countTrueAnswers}px`,
+  };
 
   return (
     <div className="result-wrapper">
       <i className="fa-solid fa-list-check"></i>
       <p>Thank you for completing this quiz. Here are your results:</p>
       <p>
-        You answered <span>true answ</span> out of <span>{amount}</span> questions correctly in
+        You answered <span>{countTrueAnswers}</span> out of <span>{amount}</span> questions correctly in
         <span> result time</span> minutes
       </p>
       <p className="result__bar">
-        <p className="result__bar-progress"></p>
+        <p className="result__bar-progress" style={style}></p>
       </p>
 
       <section className="settings-wrapper">
