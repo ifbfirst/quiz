@@ -23,3 +23,9 @@
 .back:hover {
   background-color: var(--main-light-hover);
 }
+
+.statistics-wrapper span {
+  font-size: 1.2em;
+  color: var(--main-dark);
+  font-weight: 800;
+}

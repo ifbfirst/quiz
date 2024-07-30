@@ -11,12 +11,13 @@ import { resetConfig } from '../store/configSlice';
 import useQuiz from '../hooks/quizHook';
 import { QuestionsResponse } from '../interfaces';
 import { getMinutesSeconds, stripHtml } from '../utils';
+import { setCountTotal } from '../store/statisticsSlice';
 
 const QuizPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data, isFetching, questionsIndex, questions, resetQuiz, time } = useQuiz();
+  const { data, isFetching, questionsIndex, questions, resetQuiz, time, countTrueAnswers } = useQuiz();
   const [answer, setAnswer] = useState('');
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
   const [seconds, setSeconds] = useState(Number(time) * 60);
@@ -47,6 +48,7 @@ const QuizPage = () => {
     }
     if (questionsIndex + 1 === data?.results.length) {
       dispatch(setResultTime(Number(time) * 60 - seconds));
+      dispatch(setCountTotal(countTrueAnswers));
       navigate('/result');
     } else {
       dispatch(increaseQuestionIndex());
