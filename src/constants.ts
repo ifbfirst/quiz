@@ -1,4 +1,4 @@
-export const timeOptions = { '3 min': '3', '5  min': '5', '10  min': '5' };
+export const timeOptions = { '3 min': '3', '5  min': '5', '10  min': '10' };
 export const categoryOptions = {
   'General Knowledge': '9',
   'Entertainment: Books': '10',
