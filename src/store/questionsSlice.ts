@@ -5,12 +5,14 @@ export interface QuestionsState {
   questions: QuestionsResponse[];
   questionsIndex: number;
   countTrueAnswers: number;
+  resultTime: number;
 }
 
 const initialState: QuestionsState = {
   questions: [],
   questionsIndex: 0,
   countTrueAnswers: 0,
+  resultTime: 0,
 };
 
 export const questionsSlice = createSlice({
@@ -32,10 +34,19 @@ export const questionsSlice = createSlice({
     increaseTrueAnswers(state) {
       state.countTrueAnswers += 1;
     },
+    setResultTime(state, action: PayloadAction<number>) {
+      state.resultTime = action.payload;
+    },
   },
 });
 
-export const { setQuestions, increaseQuestionIndex, resetQuestionIndex, resetQuestions, increaseTrueAnswers } =
-  questionsSlice.actions;
+export const {
+  setQuestions,
+  increaseQuestionIndex,
+  resetQuestionIndex,
+  resetQuestions,
+  increaseTrueAnswers,
+  setResultTime,
+} = questionsSlice.actions;
 
 export const questionsReducer = questionsSlice.reducer;

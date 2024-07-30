@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import ModalComponent from '../components/ModalComponent';
 import { useDispatch } from 'react-redux';
 
-import { increaseQuestionIndex, increaseTrueAnswers } from '../store/questionsSlice';
+import { increaseQuestionIndex, increaseTrueAnswers, setResultTime } from '../store/questionsSlice';
 import { resetConfig } from '../store/configSlice';
 import useQuiz from '../hooks/quizHook';
 import { QuestionsResponse } from '../interfaces';
@@ -29,6 +29,7 @@ const QuizPage = () => {
 
   useEffect(() => {
     if (seconds <= 0) {
+      dispatch(setResultTime(Number(time) * 60 - seconds));
       navigate('/result');
       return;
     }
@@ -38,7 +39,7 @@ const QuizPage = () => {
     }, 1000);
 
     return () => clearInterval(timerId);
-  }, [seconds, navigate]);
+  }, [seconds, navigate, dispatch, time]);
 
   function nextAction() {
     const correctArr = [`${questions[questionsIndex].correct_answer}`];
@@ -46,6 +47,7 @@ const QuizPage = () => {
       dispatch(increaseTrueAnswers());
     }
     if (questionsIndex + 1 === data?.results.length) {
+      dispatch(setResultTime(Number(time) * 60 - seconds));
       navigate('/result');
     } else {
       dispatch(increaseQuestionIndex());
