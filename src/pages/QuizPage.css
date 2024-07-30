@@ -12,6 +12,7 @@
 }
 .question-wrapper p {
   max-width: 1000px;
+  text-align: center;
 }
 
 .info-wrapper {

@@ -2,7 +2,7 @@ import './QuizPage.css';
 import { ButtonComponent } from '../components/ButtonComponent';
 import { InputComponent } from '../components/InputComponent';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ModalComponent from '../components/ModalComponent';
 import { useDispatch } from 'react-redux';
 
@@ -17,7 +17,7 @@ const QuizPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { data, isFetching, questionsIndex, questions, resetQuiz, time } = useQuiz();
-  const [answersArr, setAnswersArr] = useState<string[]>([]);
+  const [answer, setAnswer] = useState('');
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
   const [seconds, setSeconds] = useState(Number(time) * 60);
 
@@ -42,8 +42,7 @@ const QuizPage = () => {
   }, [seconds, navigate, dispatch, time]);
 
   function nextAction() {
-    const correctArr = [`${questions[questionsIndex].correct_answer}`];
-    if (correctArr.every((element) => answersArr.includes(element)) && correctArr.length === answersArr.length) {
+    if (questions[questionsIndex].correct_answer === answer) {
       dispatch(increaseTrueAnswers());
     }
     if (questionsIndex + 1 === data?.results.length) {
@@ -52,8 +51,8 @@ const QuizPage = () => {
     } else {
       dispatch(increaseQuestionIndex());
       setShuffledAnswers(getAnswersOptions(questions[questionsIndex + 1]));
-      setAnswersArr([]);
     }
+    setAnswer('');
   }
 
   const modalContent = (
@@ -85,9 +84,7 @@ const QuizPage = () => {
 
   const handler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
-      setAnswersArr((prev) => [...prev, e.target.value]);
-    } else {
-      setAnswersArr((prev) => prev.filter((element) => element !== e.target.value));
+      setAnswer(e.target.value);
     }
   };
 
@@ -96,7 +93,16 @@ const QuizPage = () => {
   }
 
   if (!data || data.results.length === 0) {
-    return <div>No questions.</div>;
+    return (
+      <div className="quiz-wrapper">
+        <p>
+          <Link to="/" className={'back-btn'}>
+            Back to settings
+          </Link>
+        </p>
+        <p>No questions.</p>
+      </div>
+    );
   }
   return (
     <div className="quiz-wrapper">
@@ -120,16 +126,16 @@ const QuizPage = () => {
         </p>
       </section>
       <section className="answer-wrapper">
-        {shuffledAnswers.map((answer, index) => (
+        {shuffledAnswers.map((answerOption, index) => (
           <InputComponent
             type="radio"
             className={'radio-btn'}
             name={'answer'}
             id={`${index}`}
-            labelText={stripHtml(answer as string)}
-            value={stripHtml(answer as string)}
+            labelText={stripHtml(answerOption as string)}
+            value={stripHtml(answerOption as string)}
             onChange={handler}
-            checked={answersArr.includes(stripHtml(answer as string))}
+            checked={answer.includes(stripHtml(answerOption as string))}
           />
         ))}
       </section>

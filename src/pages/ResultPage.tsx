@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/reducers';
 import { resetConfig } from '../store/configSlice';
 import useQuiz from '../hooks/quizHook';
-import { getMinutesSeconds } from '../utils';
+import { getMinutesSeconds, stripHtml } from '../utils';
 
 const ResultPage = () => {
-  const { amount, category, difficulty, type, time } = useSelector((state: RootState) => state.config);
-  const { resetQuiz, countTrueAnswers, resultTime } = useQuiz();
+  const { amount, difficulty, type, time } = useSelector((state: RootState) => state.config);
+  const { resetQuiz, countTrueAnswers, resultTime, questions, questionsIndex } = useQuiz();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const style = {
@@ -29,11 +29,19 @@ const ResultPage = () => {
         <p className="result__bar-progress" style={style}></p>
       </p>
 
-      <section className="settings-wrapper">
-        <p>Category: {category}</p>
-        <p>Difficulty: {difficulty}</p>
-        <p>Type: {type}</p>
-        <p>Time: {time} min</p>
+      <section className="result-settings-wrapper">
+        <p>
+          Category: <span>{stripHtml(questions[questionsIndex].category)}</span>
+        </p>
+        <p>
+          Difficulty: <span>{difficulty}</span>
+        </p>
+        <p>
+          Type: <span>{type}</span>
+        </p>
+        <p>
+          Time: <span>{time} min</span>
+        </p>
       </section>
       <section className="buttons-wrapper">
         <ButtonComponent
