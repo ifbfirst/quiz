@@ -5,7 +5,7 @@ import { resetQuestionIndex, resetQuestions, setQuestions } from '../store/quest
 
 const useQuiz = () => {
   const dispatch = useDispatch();
-  const { amount, category, difficulty, type } = useSelector((state: RootState) => state.config);
+  const { amount, category, difficulty, type, time } = useSelector((state: RootState) => state.config);
   const { questions, questionsIndex, countTrueAnswers } = useSelector((state: RootState) => state.questions);
   const { data, isFetching } = useFetchQuestionsQuery({ amount, category, difficulty, type });
 
@@ -20,7 +20,7 @@ const useQuiz = () => {
     dispatch(resetQuestions());
   };
 
-  return { data, isFetching, questionsIndex, questions, resetQuiz, countTrueAnswers };
+  return { data, isFetching, questionsIndex, questions, resetQuiz, countTrueAnswers, time };
 };
 
 export default useQuiz;

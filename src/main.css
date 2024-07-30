@@ -6,7 +6,7 @@
 
 :root {
   --main-dark: #2a4087;
-  --main-light: #b0cded;
+  --main-light: #d4e6f9;
   --main-light-hover: #1c2f6f;
   --text-light: #ffffff;
 }
@@ -34,7 +34,7 @@ body {
 }
 .main {
   background-color: var(--main-light);
-  padding: 20px 20px 40px 20px;
+  padding: 30px;
   min-height: 600px;
 }
 
@@ -152,5 +152,14 @@ h4 {
   }
   to {
     transform: rotate(0deg);
+  }
+}
+
+@media (max-width: 530px) {
+  .main {
+    padding: 15px;
+  }
+  body {
+    padding: 15px;
   }
 }

@@ -10,15 +10,16 @@ import { increaseQuestionIndex, increaseTrueAnswers } from '../store/questionsSl
 import { resetConfig } from '../store/configSlice';
 import useQuiz from '../hooks/quizHook';
 import { QuestionsResponse } from '../interfaces';
-import { stripHtml } from '../utils';
+import { getMinutesSeconds, stripHtml } from '../utils';
 
 const QuizPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data, isFetching, questionsIndex, questions, resetQuiz } = useQuiz();
+  const { data, isFetching, questionsIndex, questions, resetQuiz, time } = useQuiz();
   const [answersArr, setAnswersArr] = useState<string[]>([]);
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
+  const [seconds, setSeconds] = useState(Number(time) * 60);
 
   useEffect(() => {
     if (data && data.results.length > 0) {
@@ -26,12 +27,24 @@ const QuizPage = () => {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (seconds <= 0) {
+      navigate('/result');
+      return;
+    }
+
+    const timerId = setInterval(() => {
+      setSeconds((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timerId);
+  }, [seconds, navigate]);
+
   function nextAction() {
     const correctArr = [`${questions[questionsIndex].correct_answer}`];
     if (correctArr.every((element) => answersArr.includes(element)) && correctArr.length === answersArr.length) {
       dispatch(increaseTrueAnswers());
     }
-
     if (questionsIndex + 1 === data?.results.length) {
       navigate('/result');
     } else {
@@ -93,7 +106,8 @@ const QuizPage = () => {
         </div>
         <div className="time-wrapper">
           <p>
-            <i className="fa-solid fa-hourglass-start"></i>00:00
+            <i className="fa-solid fa-hourglass-start"></i>
+            {getMinutesSeconds(seconds).minText}:{getMinutesSeconds(seconds).secText}
           </p>
         </div>
       </section>
@@ -104,31 +118,18 @@ const QuizPage = () => {
         </p>
       </section>
       <section className="answer-wrapper">
-        {data.results[questionsIndex].type === 'multiple'
-          ? shuffledAnswers.map((answer, index) => (
-              <InputComponent
-                type="checkbox"
-                className={'checkbox-btn'}
-                name={`${index}`}
-                id={`${index}`}
-                labelText={stripHtml(answer as string)}
-                value={stripHtml(answer as string)}
-                onChange={handler}
-                checked={answersArr.includes(stripHtml(answer as string))}
-              />
-            ))
-          : shuffledAnswers.map((answer, index) => (
-              <InputComponent
-                type="radio"
-                className={'radio-btn'}
-                name={`answer`}
-                id={`${index}`}
-                labelText={answer}
-                value={stripHtml(answer as string)}
-                onChange={handler}
-                checked={answersArr.includes(answer as string)}
-              />
-            ))}
+        {shuffledAnswers.map((answer, index) => (
+          <InputComponent
+            type="radio"
+            className={'radio-btn'}
+            name={'answer'}
+            id={`${index}`}
+            labelText={stripHtml(answer as string)}
+            value={stripHtml(answer as string)}
+            onChange={handler}
+            checked={answersArr.includes(stripHtml(answer as string))}
+          />
+        ))}
       </section>
       <section className="buttons-wrapper">
         <ButtonComponent

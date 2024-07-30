@@ -1,14 +1,14 @@
 .quiz-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 70px;
+  gap: 50px;
 }
 
 .question-wrapper {
   align-self: center;
   display: flex;
   justify-content: center;
-  min-height: 50px;
+  min-height: 60px;
 }
 .question-wrapper p {
   max-width: 1000px;
@@ -71,8 +71,5 @@
 @media (max-width: 530px) {
   .buttons-wrapper {
     flex-direction: column;
-  }
-  .quiz-wrapper {
-    padding: 20px;
   }
 }

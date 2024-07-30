@@ -18,10 +18,10 @@ const ResultPage = () => {
   return (
     <div className="result-wrapper">
       <i className="fa-solid fa-list-check"></i>
-      <p>Thank you for completing this quiz. Here are your results:</p>
       <p>
-        You answered <span>{countTrueAnswers}</span> out of <span>{amount}</span> questions correctly in
-        <span> result time</span> minutes
+        You answered <span>{countTrueAnswers}</span> out of <span>{amount}</span> questions correctly <br />
+        in
+        <span> {time}</span> minutes
       </p>
       <p className="result__bar">
         <p className="result__bar-progress" style={style}></p>
