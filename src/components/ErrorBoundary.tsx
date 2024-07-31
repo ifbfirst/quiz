@@ -19,11 +19,13 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   render() {
     if (this.state.hasError) {
       return (
-        <div>
+        <div className="error-page">
           <p> OOPS...Seems like an error occured!</p>
-          <Link to="/" className={'back-btn'}>
-            Back to settings
-          </Link>
+          <p>
+            <Link to="/" className={'back-btn'}>
+              Back to settings
+            </Link>
+          </p>
         </div>
       );
     }

@@ -1,14 +1,14 @@
+import './main.css';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import SettingsPage from './pages/SettingsPage';
 import ErrorPage from './pages/ErrorPage';
 import QuizPage from './pages/QuizPage';
 import StatisticsPage from './pages/StatisticsPage';
 import ResultPage from './pages/ResultPage';
-import './main.css';
 import { Provider } from 'react-redux';
 import store from './store';
 import ErrorBoundary from './components/ErrorBoundary';
+import SettingsPage from './pages/SettingsPage';
 
 const router = createBrowserRouter([
   {
@@ -25,11 +25,19 @@ const router = createBrowserRouter([
   },
   {
     path: '/result',
-    element: <ResultPage />,
+    element: (
+      <ErrorBoundary>
+        <ResultPage />
+      </ErrorBoundary>
+    ),
   },
   {
     path: '/statistics',
-    element: <StatisticsPage />,
+    element: (
+      <ErrorBoundary>
+        <StatisticsPage />
+      </ErrorBoundary>
+    ),
   },
   {
     path: '*',

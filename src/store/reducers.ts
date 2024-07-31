@@ -2,10 +2,12 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { questionsApi } from '../servises/quizApi';
 import { questionsReducer } from './questionsSlice';
 import { configReducer } from './configSlice';
+import { statisticsReducer } from './statisticsSlice';
 
 const rootReducer = combineReducers({
   questions: questionsReducer,
   config: configReducer,
+  statistics: statisticsReducer,
   [questionsApi.reducerPath]: questionsApi.reducer,
 });
 

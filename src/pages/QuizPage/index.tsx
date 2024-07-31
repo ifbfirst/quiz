@@ -1,17 +1,17 @@
-import './QuizPage.css';
-import { ButtonComponent } from '../components/ButtonComponent';
-import { InputComponent } from '../components/InputComponent';
+import './index.css';
+import { ButtonComponent } from '../../components/ButtonComponent';
+import { InputComponent } from '../../components/InputComponent';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import ModalComponent from '../components/ModalComponent';
+import ModalComponent from '../../components/ModalComponent';
 import { useDispatch } from 'react-redux';
 
-import { increaseQuestionIndex, increaseTrueAnswers, setResultTime } from '../store/questionsSlice';
-import { resetConfig } from '../store/configSlice';
-import useQuiz from '../hooks/quizHook';
-import { QuestionsResponse } from '../interfaces';
-import { getMinutesSeconds, stripHtml } from '../utils';
-import { setCountTotal } from '../store/statisticsSlice';
+import { increaseQuestionIndex, increaseTrueAnswers, setResultTime } from '../../store/questionsSlice';
+import { resetConfig } from '../../store/configSlice';
+import useQuiz from '../../hooks/quizHook';
+import { QuestionsResponse } from '../../interfaces';
+import { getMinutesSeconds, stripHtml } from '../../utils';
+import { setCountTotal } from '../../store/statisticsSlice';
 
 const QuizPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -91,18 +91,18 @@ const QuizPage = () => {
   };
 
   if (isFetching) {
-    return <div className="preloader" data-testid="loader"></div>;
+    return <div className="preloader"></div>;
   }
 
   if (!data || data.results.length === 0) {
     return (
-      <div className="quiz-wrapper">
+      <div className="error-page">
+        <p>No questions for selected parameters. Try again...</p>
         <p>
           <Link to="/" className={'back-btn'}>
             Back to settings
           </Link>
         </p>
-        <p>No questions.</p>
       </div>
     );
   }

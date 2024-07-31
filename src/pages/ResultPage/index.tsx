@@ -1,11 +1,11 @@
+import './index.css';
 import { useNavigate } from 'react-router-dom';
-import { ButtonComponent } from '../components/ButtonComponent';
-import './ResultPage.css';
+import { ButtonComponent } from '../../components/ButtonComponent';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store/reducers';
-import { resetConfig } from '../store/configSlice';
-import useQuiz from '../hooks/quizHook';
-import { getMinutesSeconds, stripHtml } from '../utils';
+import { RootState } from '../../store/reducers';
+import { resetConfig } from '../../store/configSlice';
+import useQuiz from '../../hooks/quizHook';
+import { getMinutesSeconds, stripHtml } from '../../utils';
 
 const ResultPage = () => {
   const { amount, difficulty, type, time } = useSelector((state: RootState) => state.config);

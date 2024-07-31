@@ -1,6 +1,6 @@
+import './index.css';
 import { Link } from 'react-router-dom';
-import './StatisticsPage.css';
-import { RootState } from '../store/reducers';
+import { RootState } from '../../store/reducers';
 import { useSelector } from 'react-redux';
 
 const StatisticsPage = () => {
@@ -8,6 +8,7 @@ const StatisticsPage = () => {
 
   return (
     <div className="statistics-wrapper">
+      <h2>Statistics</h2>
       <p>
         Number of correct answers: <span>{countTotalAnswers}</span>
       </p>
