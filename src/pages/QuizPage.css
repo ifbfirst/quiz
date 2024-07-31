@@ -1,17 +1,18 @@
 .quiz-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 70px;
+  gap: 50px;
 }
 
 .question-wrapper {
   align-self: center;
   display: flex;
   justify-content: center;
-  min-height: 50px;
+  min-height: 60px;
 }
 .question-wrapper p {
   max-width: 1000px;
+  text-align: center;
 }
 
 .info-wrapper {
@@ -33,12 +34,17 @@
   align-self: center;
 }
 .radio-btn,
+.checkbox-btn label,
 .radio-btn label {
   cursor: pointer;
   margin-left: 15px;
 }
-.radio-btn input {
+.radio-btn input,
+.checkbox-btn input {
   transform: scale(1.5);
+  margin-right: 10px;
+  margin-top: 10px;
+  cursor: pointer;
 }
 
 .confirm-btn {
@@ -66,8 +72,5 @@
 @media (max-width: 530px) {
   .buttons-wrapper {
     flex-direction: column;
-  }
-  .quiz-wrapper {
-    padding: 20px;
   }
 }

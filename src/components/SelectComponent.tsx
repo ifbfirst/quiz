@@ -1,6 +1,6 @@
 type SelectProps = {
   className: string;
-  options: Record<string, string> | string[];
+  options: Record<string, string> | string[] | Record<string, number>;
   text: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;

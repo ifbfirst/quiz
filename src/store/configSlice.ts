@@ -12,7 +12,7 @@ const initialState: ConfigState = {
   amount: '10',
   category: '9',
   difficulty: 'easy',
-  time: '180',
+  time: '3',
   type: 'multiple',
 };
 

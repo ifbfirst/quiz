@@ -17,7 +17,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/quiz',
-    element: <QuizPage />,
+    element: (
+      <ErrorBoundary>
+        <QuizPage />
+      </ErrorBoundary>
+    ),
   },
   {
     path: '/result',
@@ -39,11 +43,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <h1>Quiz</h1>
     </header>
     <main className="main">
-      <ErrorBoundary>
-        <Provider store={store}>
-          <RouterProvider router={router} />
-        </Provider>
-      </ErrorBoundary>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </main>
   </div>,
 );
