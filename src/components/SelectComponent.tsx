@@ -3,7 +3,7 @@ type SelectProps = {
   options: Record<string, string> | string[] | Record<string, number>;
   text: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
 export const SelectComponent = (props: SelectProps) => {

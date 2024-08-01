@@ -6,6 +6,7 @@ import { RootState } from '../../store/reducers';
 import { resetConfig } from '../../store/configSlice';
 import useQuiz from '../../hooks/quizHook';
 import { getMinutesSeconds, stripHtml } from '../../utils';
+import { widthProgressBar } from '../../constants';
 
 const ResultPage = () => {
   const { amount, difficulty, type, time } = useSelector((state: RootState) => state.config);
@@ -13,7 +14,7 @@ const ResultPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const style = {
-    width: `${(300 / +amount) * countTrueAnswers}px`,
+    width: `${(widthProgressBar / +amount) * countTrueAnswers}px`,
   };
 
   return (

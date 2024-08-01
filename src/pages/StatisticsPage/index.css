@@ -4,14 +4,35 @@
   gap: 20px;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
 }
-
+.statistics-wrapper section {
+  padding: 20px;
+  background-color: var(--main-blue-light);
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  padding-bottom: 20px;
+  border: 1px solid var(--text-light);
+  font-size: 0.8em;
+}
+.statistics-wrapper p {
+  text-align: center;
+}
+.statistics-wrapper select {
+  width: 300px;
+  cursor: pointer;
+}
+.result__bar {
+  margin-bottom: 10px;
+}
 .back-btn {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 200px;
   height: 50px;
+  margin: 0 auto;
   font-size: 0.8em;
   color: var(--text-light);
   background-color: var(--main-dark);
@@ -28,4 +49,10 @@
   font-size: 1.2em;
   color: var(--main-dark);
   font-weight: 800;
+}
+
+@media (max-width: 870px) {
+  .statistics-wrapper section {
+    flex-direction: column;
+  }
 }

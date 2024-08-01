@@ -11,22 +11,31 @@ import { resetConfig } from '../../store/configSlice';
 import useQuiz from '../../hooks/quizHook';
 import { QuestionsResponse } from '../../interfaces';
 import { getMinutesSeconds, stripHtml } from '../../utils';
-import { setCountTotal } from '../../store/statisticsSlice';
+import {
+  setCountTotalQuestions,
+  setCountTotalTrueAnswers,
+  setCountTotalTrueCategory,
+  setCountTotalTrueDifficulty,
+  setCountTotalTrueType,
+} from '../../store/statisticsSlice';
 
 const QuizPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data, isFetching, questionsIndex, questions, resetQuiz, time, countTrueAnswers } = useQuiz();
+  const { data, isFetching, questionsIndex, questions, resetQuiz, time, countTrueAnswers, category, type, difficulty } =
+    useQuiz();
+
   const [answer, setAnswer] = useState('');
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
   const [seconds, setSeconds] = useState(Number(time) * 60);
 
   useEffect(() => {
-    if (data && data.results.length > 0) {
-      setShuffledAnswers(getAnswersOptions(data.results[0]));
+    if (questions && questions.length > 0) {
+      alert(countTrueAnswers);
+      setShuffledAnswers(getAnswersOptions(questions[0]));
     }
-  }, [data]);
+  }, [countTrueAnswers, questions]);
 
   useEffect(() => {
     if (seconds <= 0) {
@@ -46,10 +55,14 @@ const QuizPage = () => {
     if (questions[questionsIndex].correct_answer === answer) {
       dispatch(increaseTrueAnswers());
     }
-    if (questionsIndex + 1 === data?.results.length) {
-      dispatch(setResultTime(Number(time) * 60 - seconds));
-      dispatch(setCountTotal(countTrueAnswers));
+    if (questionsIndex + 1 === questions.length) {
       navigate('/result');
+      dispatch(setResultTime(Number(time) * 60 - seconds));
+      dispatch(setCountTotalTrueAnswers(countTrueAnswers));
+      dispatch(setCountTotalQuestions(questions.length));
+      dispatch(setCountTotalTrueCategory({ category: category, count: countTrueAnswers }));
+      dispatch(setCountTotalTrueDifficulty({ difficulty: difficulty, count: countTrueAnswers }));
+      dispatch(setCountTotalTrueType({ type: type, count: countTrueAnswers }));
     } else {
       dispatch(increaseQuestionIndex());
       setShuffledAnswers(getAnswersOptions(questions[questionsIndex + 1]));
