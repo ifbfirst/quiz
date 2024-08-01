@@ -23,8 +23,8 @@ const StatisticsPage = () => {
         <p>
           Total correct answers <span>{countTotalTrueAnswers}</span> out of <span>{countTotalQuestions}</span>
         </p>
-        <p className="result__bar">
-          <p
+        <div className="result__bar">
+          <div
             className="result__bar-progress"
             style={
               countTotalTrueAnswers
@@ -33,8 +33,8 @@ const StatisticsPage = () => {
                   }
                 : { width: '0px' }
             }
-          ></p>
-        </p>
+          ></div>
+        </div>
       </section>
       <section>
         <SelectComponent
@@ -50,8 +50,8 @@ const StatisticsPage = () => {
           Total correct answers
           <span> {countTotalTrueCategory[category]}</span>
         </p>
-        <p className="result__bar">
-          <p
+        <div className="result__bar">
+          <div
             className="result__bar-progress"
             style={
               countTotalTrueCategory[category]
@@ -60,8 +60,8 @@ const StatisticsPage = () => {
                   }
                 : { width: '0px' }
             }
-          ></p>
-        </p>
+          ></div>
+        </div>
       </section>
       <section>
         <SelectComponent
@@ -77,8 +77,8 @@ const StatisticsPage = () => {
           Total correct answers
           <span> {countTotalTrueDifficulty[difficulty]}</span>
         </p>
-        <p className="result__bar">
-          <p
+        <div className="result__bar">
+          <div
             className="result__bar-progress"
             style={
               countTotalTrueDifficulty[difficulty]
@@ -87,8 +87,8 @@ const StatisticsPage = () => {
                   }
                 : { width: '0px' }
             }
-          ></p>
-        </p>
+          ></div>
+        </div>
       </section>
       <section>
         <SelectComponent
@@ -104,8 +104,8 @@ const StatisticsPage = () => {
           Total correct answers
           <span> {countTotalTrueType[type]}</span>
         </p>
-        <p className="result__bar">
-          <p
+        <div className="result__bar">
+          <div
             className="result__bar-progress"
             style={
               countTotalTrueType[type]
@@ -114,8 +114,8 @@ const StatisticsPage = () => {
                   }
                 : { width: '0px' }
             }
-          ></p>
-        </p>
+          ></div>
+        </div>
       </section>
       <p>
         <Link to="/" className={'back-btn'}>

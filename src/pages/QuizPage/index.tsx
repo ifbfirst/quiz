@@ -4,7 +4,7 @@ import { InputComponent } from '../../components/InputComponent';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ModalComponent from '../../components/ModalComponent';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { increaseQuestionIndex, increaseTrueAnswers, setResultTime } from '../../store/questionsSlice';
 import { resetConfig } from '../../store/configSlice';
@@ -18,13 +18,14 @@ import {
   setCountTotalTrueDifficulty,
   setCountTotalTrueType,
 } from '../../store/statisticsSlice';
+import { RootState } from '../../store/reducers';
 
 const QuizPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data, isFetching, questionsIndex, questions, resetQuiz, time, countTrueAnswers, category, type, difficulty } =
-    useQuiz();
+  const { data, isFetching, questionsIndex, questions, resetQuiz, time, category, type, difficulty } = useQuiz();
+  const countTrueAnswers = useSelector((state: RootState) => state.questions.countTrueAnswers);
 
   const [answer, setAnswer] = useState('');
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
@@ -51,13 +52,17 @@ const QuizPage = () => {
   }, [seconds, navigate, dispatch, time]);
 
   function nextAction() {
-    if (questions[questionsIndex].correct_answer === answer) {
+    const isCorrect = questions[questionsIndex].correct_answer === answer;
+    if (isCorrect) {
       dispatch(increaseTrueAnswers());
     }
-    if (questionsIndex + 1 === questions.length) {
+    if (questionsIndex === questions.length - 1) {
+      if (isCorrect) {
+        dispatch(increaseTrueAnswers());
+      }
       navigate('/result');
       dispatch(setResultTime(Number(time) * 60 - seconds));
-      dispatch(setCountTotalTrueAnswers(countTrueAnswers));
+      dispatch(setCountTotalTrueAnswers(countTrueAnswers + (isCorrect ? 1 : 0)));
       dispatch(setCountTotalQuestions(questions.length));
       dispatch(setCountTotalTrueCategory({ category: category, count: countTrueAnswers }));
       dispatch(setCountTotalTrueDifficulty({ difficulty: difficulty, count: countTrueAnswers }));
@@ -146,6 +151,7 @@ const QuizPage = () => {
             className={'radio-btn'}
             name={'answer'}
             id={`${index}`}
+            key={index}
             labelText={stripHtml(answerOption as string)}
             value={stripHtml(answerOption as string)}
             onChange={handler}

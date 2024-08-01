@@ -26,9 +26,9 @@ const ResultPage = () => {
         <span> {getMinutesSeconds(resultTime).minText} </span> minutes
         <span> {getMinutesSeconds(resultTime).secText} seconds</span>
       </p>
-      <p className="result__bar">
-        <p className="result__bar-progress" style={style}></p>
-      </p>
+      <div className="result__bar">
+        <div className="result__bar-progress" style={style}></div>
+      </div>
 
       <section className="result-settings-wrapper">
         <p>
