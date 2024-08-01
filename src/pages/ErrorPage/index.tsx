@@ -6,8 +6,7 @@ const ErrorPage = () => {
 
   return (
     <div className="error-page">
-      <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
+      <p>Oops!...Sorry, an unexpected error has occurred.</p>
       <p>
         <Link to="/" className={'back-btn'}>
           Back to settings

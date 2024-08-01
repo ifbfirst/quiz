@@ -1,6 +1,6 @@
 import './main.css';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import ErrorPage from './pages/ErrorPage';
 import QuizPage from './pages/QuizPage';
 import StatisticsPage from './pages/StatisticsPage';
@@ -13,40 +13,33 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 const router = createBrowserRouter([
   {
-    path: '/',
     element: (
       <ErrorBoundary>
-        <SettingsPage />
+        <Outlet />
       </ErrorBoundary>
     ),
-  },
-  {
-    path: '/quiz',
-    element: (
-      <ErrorBoundary>
-        <QuizPage />
-      </ErrorBoundary>
-    ),
-  },
-  {
-    path: '/result',
-    element: (
-      <ErrorBoundary>
-        <ResultPage />
-      </ErrorBoundary>
-    ),
-  },
-  {
-    path: '/statistics',
-    element: (
-      <ErrorBoundary>
-        <StatisticsPage />
-      </ErrorBoundary>
-    ),
-  },
-  {
-    path: '*',
-    element: <ErrorPage />,
+    children: [
+      {
+        path: '/',
+        element: <SettingsPage />,
+      },
+      {
+        path: 'quiz',
+        element: <QuizPage />,
+      },
+      {
+        path: 'result',
+        element: <ResultPage />,
+      },
+      {
+        path: 'statistics',
+        element: <StatisticsPage />,
+      },
+      {
+        path: '*',
+        element: <ErrorPage />,
+      },
+    ],
   },
 ]);
 
