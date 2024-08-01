@@ -32,7 +32,6 @@ const QuizPage = () => {
 
   useEffect(() => {
     if (questions && questions.length > 0) {
-      alert(countTrueAnswers);
       setShuffledAnswers(getAnswersOptions(questions[0]));
     }
   }, [countTrueAnswers, questions]);
