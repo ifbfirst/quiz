@@ -6,16 +6,13 @@ import { RootState } from '../../store/reducers';
 import { resetConfig } from '../../store/configSlice';
 import useQuiz from '../../hooks/quizHook';
 import { getMinutesSeconds, stripHtml } from '../../utils';
-import { widthProgressBar } from '../../constants';
+import ResultBarComponent from '../../components/ResultBarComponent';
 
 const ResultPage = () => {
   const { amount, difficulty, type, time } = useSelector((state: RootState) => state.config);
   const { resetQuiz, countTrueAnswers, resultTime, questions, questionsIndex } = useQuiz();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const style = {
-    width: `${(widthProgressBar / +amount) * countTrueAnswers}px`,
-  };
 
   return (
     <div className="result-wrapper">
@@ -26,9 +23,7 @@ const ResultPage = () => {
         <span> {getMinutesSeconds(resultTime).minText} </span> minutes
         <span> {getMinutesSeconds(resultTime).secText} seconds</span>
       </p>
-      <div className="result__bar">
-        <div className="result__bar-progress" style={style}></div>
-      </div>
+      <ResultBarComponent countTotalQuestions={+amount} countTotalTrue={countTrueAnswers} />
 
       <section className="result-settings-wrapper">
         <p>

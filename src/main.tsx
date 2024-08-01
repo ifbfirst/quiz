@@ -14,7 +14,11 @@ import { PersistGate } from 'redux-persist/integration/react';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <SettingsPage />,
+    element: (
+      <ErrorBoundary>
+        <SettingsPage />
+      </ErrorBoundary>
+    ),
   },
   {
     path: '/quiz',
