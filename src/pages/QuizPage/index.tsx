@@ -57,15 +57,12 @@ const QuizPage = () => {
       dispatch(increaseTrueAnswers());
     }
     if (questionsIndex === questions.length - 1) {
-      if (isCorrect) {
-        dispatch(increaseTrueAnswers());
-      }
       navigate('/result');
       dispatch(setResultTime(Number(time) * 60 - seconds));
       dispatch(setCountTotalTrueAnswers(countTrueAnswers + (isCorrect ? 1 : 0)));
       dispatch(setCountTotalQuestions(questions.length));
-      dispatch(setCountTotalTrueCategory({ category: category, count: countTrueAnswers }));
-      dispatch(setCountTotalTrueDifficulty({ difficulty: difficulty, count: countTrueAnswers }));
+      dispatch(setCountTotalTrueCategory({ category: category, count: countTrueAnswers + (isCorrect ? 1 : 0) }));
+      dispatch(setCountTotalTrueDifficulty({ difficulty: difficulty, count: countTrueAnswers + (isCorrect ? 1 : 0) }));
       dispatch(setCountTotalTrueType({ type: type, count: countTrueAnswers }));
     } else {
       dispatch(increaseQuestionIndex());
