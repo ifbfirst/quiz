@@ -1,20 +1,18 @@
+import './index.css';
 import { useNavigate } from 'react-router-dom';
-import { ButtonComponent } from '../components/ButtonComponent';
-import './ResultPage.css';
+import { ButtonComponent } from '../../components/ButtonComponent';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store/reducers';
-import { resetConfig } from '../store/configSlice';
-import useQuiz from '../hooks/quizHook';
-import { getMinutesSeconds, stripHtml } from '../utils';
+import { RootState } from '../../store/reducers';
+import { resetConfig } from '../../store/configSlice';
+import useQuiz from '../../hooks/quizHook';
+import { getMinutesSeconds, stripHtml } from '../../utils';
+import ResultBarComponent from '../../components/ResultBarComponent';
 
 const ResultPage = () => {
   const { amount, difficulty, type, time } = useSelector((state: RootState) => state.config);
   const { resetQuiz, countTrueAnswers, resultTime, questions, questionsIndex } = useQuiz();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const style = {
-    width: `${(300 / +amount) * countTrueAnswers}px`,
-  };
 
   return (
     <div className="result-wrapper">
@@ -25,9 +23,7 @@ const ResultPage = () => {
         <span> {getMinutesSeconds(resultTime).minText} </span> minutes
         <span> {getMinutesSeconds(resultTime).secText} seconds</span>
       </p>
-      <p className="result__bar">
-        <p className="result__bar-progress" style={style}></p>
-      </p>
+      <ResultBarComponent countTotalQuestions={+amount} countTotalTrue={countTrueAnswers} />
 
       <section className="result-settings-wrapper">
         <p>

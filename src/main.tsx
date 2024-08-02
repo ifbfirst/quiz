@@ -1,39 +1,45 @@
+import './main.css';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import SettingsPage from './pages/SettingsPage';
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import ErrorPage from './pages/ErrorPage';
 import QuizPage from './pages/QuizPage';
 import StatisticsPage from './pages/StatisticsPage';
 import ResultPage from './pages/ResultPage';
-import './main.css';
 import { Provider } from 'react-redux';
-import store from './store';
 import ErrorBoundary from './components/ErrorBoundary';
+import SettingsPage from './pages/SettingsPage';
+import { persistor, store } from './store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <SettingsPage />,
-  },
-  {
-    path: '/quiz',
     element: (
       <ErrorBoundary>
-        <QuizPage />
+        <Outlet />
       </ErrorBoundary>
     ),
-  },
-  {
-    path: '/result',
-    element: <ResultPage />,
-  },
-  {
-    path: '/statistics',
-    element: <StatisticsPage />,
-  },
-  {
-    path: '*',
-    element: <ErrorPage />,
+    children: [
+      {
+        path: '/',
+        element: <SettingsPage />,
+      },
+      {
+        path: 'quiz',
+        element: <QuizPage />,
+      },
+      {
+        path: 'result',
+        element: <ResultPage />,
+      },
+      {
+        path: 'statistics',
+        element: <StatisticsPage />,
+      },
+      {
+        path: '*',
+        element: <ErrorPage />,
+      },
+    ],
   },
 ]);
 
@@ -44,7 +50,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </header>
     <main className="main">
       <Provider store={store}>
-        <RouterProvider router={router} />
+        <PersistGate loading={null} persistor={persistor}>
+          <RouterProvider router={router} />
+        </PersistGate>
       </Provider>
     </main>
   </div>,

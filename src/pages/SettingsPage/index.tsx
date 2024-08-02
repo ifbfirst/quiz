@@ -1,11 +1,11 @@
-import './SettingsPage.css';
-import { InputComponent } from '../components/InputComponent';
-import { SelectComponent } from '../components/SelectComponent';
-import { categoryOptions, difficultyOptions, timeOptions, typeOptions } from '../constants';
+import './index.css';
+import { InputComponent } from '../../components/InputComponent';
+import { SelectComponent } from '../../components/SelectComponent';
+import { categoryOptions, difficultyOptions, timeOptions, typeOptions } from '../../constants';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store/reducers';
-import { setCategory, setCountQuestions, setDifficulty, setTime, setType } from '../store/configSlice';
+import { RootState } from '../../store/reducers';
+import { setCategory, setCountQuestions, setDifficulty, setTime, setType } from '../../store/configSlice';
 
 const SettingsPage = () => {
   const dispatch = useDispatch();

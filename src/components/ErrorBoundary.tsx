@@ -1,6 +1,5 @@
 import React, { ErrorInfo } from 'react';
 import { ErrorBoundaryProps, ErrorBoundaryState } from '../interfaces';
-import { Link } from 'react-router-dom';
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
@@ -19,11 +18,8 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   render() {
     if (this.state.hasError) {
       return (
-        <div>
-          <p> OOPS...Seems like an error occured!</p>
-          <Link to="/" className={'back-btn'}>
-            Back to settings
-          </Link>
+        <div className="error-page">
+          <p> OOPS...Seems like an error occurred!</p>
         </div>
       );
     }

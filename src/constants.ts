@@ -27,3 +27,5 @@ export const categoryOptions = {
 };
 export const difficultyOptions = { Easy: 'easy', Medium: 'medium', Hard: 'hard' };
 export const typeOptions = { 'Multiple choice': 'multiple', 'True / False': 'boolean' };
+
+export const widthProgressBar = 350;

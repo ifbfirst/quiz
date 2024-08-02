@@ -20,15 +20,14 @@
 .result__bar {
   width: 300px;
   height: 10px;
-  border: 1px solid var(--main-dark);
+  background-color: var(--text-light);
   border-radius: 10px;
 }
 .result__bar-progress {
   background-color: var(--main-dark);
-
-  height: 9px;
+  height: 10px;
   border-radius: 15px;
-  margin-left: -1px;
+  width: 50px;
 }
 
 .result-settings-wrapper {

@@ -34,6 +34,9 @@ export const questionsSlice = createSlice({
     increaseTrueAnswers(state) {
       state.countTrueAnswers += 1;
     },
+    resetTrueAnswers(state) {
+      state.countTrueAnswers = 0;
+    },
     setResultTime(state, action: PayloadAction<number>) {
       state.resultTime = action.payload;
     },
@@ -47,6 +50,7 @@ export const {
   resetQuestions,
   increaseTrueAnswers,
   setResultTime,
+  resetTrueAnswers,
 } = questionsSlice.actions;
 
 export const questionsReducer = questionsSlice.reducer;

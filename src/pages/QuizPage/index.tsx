@@ -1,32 +1,41 @@
-import './QuizPage.css';
-import { ButtonComponent } from '../components/ButtonComponent';
-import { InputComponent } from '../components/InputComponent';
+import './index.css';
+import { ButtonComponent } from '../../components/ButtonComponent';
+import { InputComponent } from '../../components/InputComponent';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import ModalComponent from '../components/ModalComponent';
-import { useDispatch } from 'react-redux';
+import ModalComponent from '../../components/ModalComponent';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { increaseQuestionIndex, increaseTrueAnswers, setResultTime } from '../store/questionsSlice';
-import { resetConfig } from '../store/configSlice';
-import useQuiz from '../hooks/quizHook';
-import { QuestionsResponse } from '../interfaces';
-import { getMinutesSeconds, stripHtml } from '../utils';
-import { setCountTotal } from '../store/statisticsSlice';
+import { increaseQuestionIndex, increaseTrueAnswers, setResultTime } from '../../store/questionsSlice';
+import { resetConfig } from '../../store/configSlice';
+import useQuiz from '../../hooks/quizHook';
+import { QuestionsResponse } from '../../interfaces';
+import { getMinutesSeconds, stripHtml } from '../../utils';
+import {
+  setCountTotalQuestions,
+  setCountTotalTrueAnswers,
+  setCountTotalTrueCategory,
+  setCountTotalTrueDifficulty,
+  setCountTotalTrueType,
+} from '../../store/statisticsSlice';
+import { RootState } from '../../store/reducers';
 
 const QuizPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data, isFetching, questionsIndex, questions, resetQuiz, time, countTrueAnswers } = useQuiz();
+  const { data, isFetching, questionsIndex, questions, resetQuiz, time, category, type, difficulty } = useQuiz();
+  const countTrueAnswers = useSelector((state: RootState) => state.questions.countTrueAnswers);
+
   const [answer, setAnswer] = useState('');
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
   const [seconds, setSeconds] = useState(Number(time) * 60);
 
   useEffect(() => {
-    if (data && data.results.length > 0) {
-      setShuffledAnswers(getAnswersOptions(data.results[0]));
+    if (questions && questions.length > 0) {
+      setShuffledAnswers(getAnswersOptions(questions[0]));
     }
-  }, [data]);
+  }, [countTrueAnswers, questions]);
 
   useEffect(() => {
     if (seconds <= 0) {
@@ -43,13 +52,21 @@ const QuizPage = () => {
   }, [seconds, navigate, dispatch, time]);
 
   function nextAction() {
-    if (questions[questionsIndex].correct_answer === answer) {
+    const isCorrect = questions[questionsIndex].correct_answer === answer;
+    if (isCorrect) {
       dispatch(increaseTrueAnswers());
     }
-    if (questionsIndex + 1 === data?.results.length) {
-      dispatch(setResultTime(Number(time) * 60 - seconds));
-      dispatch(setCountTotal(countTrueAnswers));
+    if (questionsIndex === questions.length - 1) {
+      if (isCorrect) {
+        dispatch(increaseTrueAnswers());
+      }
       navigate('/result');
+      dispatch(setResultTime(Number(time) * 60 - seconds));
+      dispatch(setCountTotalTrueAnswers(countTrueAnswers + (isCorrect ? 1 : 0)));
+      dispatch(setCountTotalQuestions(questions.length));
+      dispatch(setCountTotalTrueCategory({ category: category, count: countTrueAnswers }));
+      dispatch(setCountTotalTrueDifficulty({ difficulty: difficulty, count: countTrueAnswers }));
+      dispatch(setCountTotalTrueType({ type: type, count: countTrueAnswers }));
     } else {
       dispatch(increaseQuestionIndex());
       setShuffledAnswers(getAnswersOptions(questions[questionsIndex + 1]));
@@ -91,18 +108,18 @@ const QuizPage = () => {
   };
 
   if (isFetching) {
-    return <div className="preloader" data-testid="loader"></div>;
+    return <div className="preloader"></div>;
   }
 
   if (!data || data.results.length === 0) {
     return (
-      <div className="quiz-wrapper">
+      <div className="error-page">
+        <p>No questions for selected parameters. Try again...</p>
         <p>
           <Link to="/" className={'back-btn'}>
             Back to settings
           </Link>
         </p>
-        <p>No questions.</p>
       </div>
     );
   }
@@ -134,6 +151,7 @@ const QuizPage = () => {
             className={'radio-btn'}
             name={'answer'}
             id={`${index}`}
+            key={index}
             labelText={stripHtml(answerOption as string)}
             value={stripHtml(answerOption as string)}
             onChange={handler}

@@ -1,11 +1,28 @@
 import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './reducers';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { questionsApi } from '../servises/quizApi';
+import { questionsApi } from '../services/quizApi';
+import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+import storage from 'redux-persist/es/storage';
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['statistics'],
+};
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(questionsApi.middleware),
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(questionsApi.middleware),
 });
 setupListeners(store.dispatch);
-export default store;
+
+const persistor = persistStore(store);
+
+export { store, persistor };
