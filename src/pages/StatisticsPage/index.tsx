@@ -6,6 +6,7 @@ import { categoryOptions, difficultyOptions, typeOptions } from '../../constants
 import { useState } from 'react';
 import ResultBarComponent from '../../components/ResultBarComponent';
 import StatisticsComponent from '../../components/StatisticsComponent';
+import { motion } from 'framer-motion';
 
 const StatisticsPage = () => {
   const { countTotalTrueAnswers, countTotalQuestions } = useSelector((state: RootState) => state.statistics);
@@ -53,11 +54,11 @@ const StatisticsPage = () => {
         setState={setType}
       />
 
-      <p>
+      <motion.p whileHover={{ scale: 0.97 }}>
         <Link to="/" className={'back-btn'}>
           Back to settings
         </Link>
-      </p>
+      </motion.p>
     </div>
   );
 };

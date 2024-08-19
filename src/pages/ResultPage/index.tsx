@@ -7,6 +7,7 @@ import { resetConfig } from '../../store/configSlice';
 import useQuiz from '../../hooks/quizHook';
 import { getMinutesSeconds, stripHtml } from '../../utils';
 import ResultBarComponent from '../../components/ResultBarComponent';
+import { motion } from 'framer-motion';
 
 const ResultPage = () => {
   const { amount, difficulty, type, time } = useSelector((state: RootState) => state.config);
@@ -16,7 +17,13 @@ const ResultPage = () => {
 
   return (
     <div className="result-wrapper">
-      <i className="fa-solid fa-list-check"></i>
+      <motion.i
+        className="fa-solid fa-list-check"
+        animate={{ y: 0, scale: 1.2 }}
+        whileHover={{ y: 10, scale: 1 }}
+        transition={{ duration: 1 }}
+      ></motion.i>
+
       <p>
         You answered <span>{countTrueAnswers}</span> out of <span>{amount}</span> questions correctly <br />
         in
@@ -27,7 +34,7 @@ const ResultPage = () => {
 
       <section className="result-settings-wrapper">
         <p>
-          Category: <span>{stripHtml(questions[questionsIndex].category)}</span>
+          Category: <span> {stripHtml(questions[questionsIndex].category)}</span>
         </p>
         <p>
           Difficulty: <span>{difficulty}</span>

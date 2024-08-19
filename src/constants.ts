@@ -29,3 +29,9 @@ export const difficultyOptions = { Easy: 'easy', Medium: 'medium', Hard: 'hard' 
 export const typeOptions = { 'Multiple choice': 'multiple', 'True / False': 'boolean' };
 
 export const widthProgressBar = 350;
+
+export const sectionVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -30 },
+};

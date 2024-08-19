@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/reducers';
 import { setCategory, setCountQuestions, setDifficulty, setTime, setType } from '../../store/configSlice';
+import { motion } from 'framer-motion';
 
 const SettingsPage = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,12 @@ const SettingsPage = () => {
     <div className="settings-wrapper">
       <section className="settings">
         <div className="settings-heading">
-          <i className="fa-solid fa-gear"></i>
+          <motion.i
+            className="fa-solid fa-gear"
+            animate={{ rotate: 360, scale: 1.2 }}
+            whileHover={{ rotate: 0, scale: 1 }}
+            transition={{ duration: 1 }}
+          ></motion.i>
           <h4>settings</h4>
         </div>
         <InputComponent
@@ -54,12 +60,16 @@ const SettingsPage = () => {
         />
       </section>
       <section className="buttons-wrapper">
-        <Link to={'/statistics'} className={'stat-btn'}>
-          See my stats
-        </Link>
-        <Link to={'/quiz'} className={'start-btn'}>
-          Start quiz
-        </Link>
+        <motion.p whileHover={{ scale: 0.97 }}>
+          <Link to={'/statistics'} className={'stat-btn'}>
+            See my stats
+          </Link>
+        </motion.p>
+        <motion.p whileHover={{ scale: 0.97 }}>
+          <Link to={'/quiz'} className={'start-btn'}>
+            Start quiz
+          </Link>
+        </motion.p>
       </section>
     </div>
   );
