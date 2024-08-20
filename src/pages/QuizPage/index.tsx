@@ -20,7 +20,7 @@ import {
 } from '../../store/statisticsSlice';
 import { RootState } from '../../store/reducers';
 import { motion } from 'framer-motion';
-import { sectionVariants } from '../../constants';
+import { variants } from '../../constants';
 
 const QuizPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -146,7 +146,7 @@ const QuizPage = () => {
       </section>
       <motion.section
         key={questionsIndex}
-        variants={sectionVariants}
+        variants={variants}
         initial="hidden"
         animate="visible"
         exit="exit"

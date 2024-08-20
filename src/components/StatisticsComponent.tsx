@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import ResultBarComponent from './ResultBarComponent';
 import { SelectComponent } from './SelectComponent';
-import { sectionVariants } from '../constants';
+import { variants } from '../constants';
 
 interface StatisticsComponentProps {
   countTotalQuestions: number;
@@ -23,7 +23,7 @@ const StatisticsComponent = ({
   setState,
 }: StatisticsComponentProps) => {
   return (
-    <motion.section variants={sectionVariants} initial="hidden" animate="visible" exit="exit">
+    <motion.section variants={variants} initial="hidden" animate="visible" exit="exit">
       <SelectComponent
         className={className}
         options={options}

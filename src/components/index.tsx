@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/reducers';
 import { resetConfig } from '../../store/configSlice';
 import useQuiz from '../../hooks/quizHook';
-import { getMinutesSeconds } from '../../utils';
+import { getMinutesSeconds, stripHtml } from '../../utils';
 import ResultBarComponent from '../../components/ResultBarComponent';
 import { motion } from 'framer-motion';
-import ResultComponent from '../../components/ResultComponent';
+import { variants } from '../../constants';
 
 const ResultPage = () => {
   const { amount, difficulty, type, time } = useSelector((state: RootState) => state.config);
@@ -26,29 +26,35 @@ const ResultPage = () => {
       ></motion.i>
 
       <p>
-        You answered <ResultComponent value={countTrueAnswers.toString()} /> out of{' '}
-        <ResultComponent value={amount.toString()} /> questions correctly in{' '}
-        <ResultComponent value={getMinutesSeconds(resultTime).minText} /> minutes{' '}
-        <ResultComponent value={getMinutesSeconds(resultTime).secText} /> seconds
+        You answered <span>{countTrueAnswers}</span> out of <span>{amount}</span> questions correctly <br />
+        in
+        <span> {getMinutesSeconds(resultTime).minText} </span> minutes
+        <span> {getMinutesSeconds(resultTime).secText} seconds</span>
       </p>
       <ResultBarComponent countTotalQuestions={+amount} countTotalTrue={countTrueAnswers} />
 
       <section className="result-settings-wrapper">
         <p>
-          Category:
-          <ResultComponent value={questions[questionsIndex].category} />
+          Category:{' '}
+          <motion.span variants={variants} initial="hidden" animate="visible" exit="exit">
+            {' '}
+            {stripHtml(questions[questionsIndex].category)}
+          </motion.span>
         </p>
         <p>
-          Difficulty:
-          <ResultComponent value={difficulty} />
+          Difficulty: <span>{difficulty}</span>
         </p>
         <p>
-          Type:
-          <ResultComponent value={type} />
+          Type:{' '}
+          <motion.span variants={variants} initial="hidden" animate="visible" exit="exit">
+            {type}
+          </motion.span>
         </p>
         <p>
-          Time:
-          <ResultComponent value={time} />
+          Time:{' '}
+          <motion.span variants={variants} initial="hidden" animate="visible" exit="exit">
+            {time} min
+          </motion.span>
         </p>
       </section>
       <section className="buttons-wrapper">

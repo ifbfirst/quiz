@@ -1,4 +1,4 @@
-import { widthProgressBar } from '../constants';
+import { motion } from 'framer-motion';
 
 interface ResultBarComponentProps {
   countTotalQuestions: number;
@@ -6,18 +6,16 @@ interface ResultBarComponentProps {
 }
 
 const ResultBarComponent = ({ countTotalQuestions, countTotalTrue }: ResultBarComponentProps) => {
+  const progressPercentage = countTotalQuestions ? (countTotalTrue / countTotalQuestions) * 100 : 0;
+
   return (
     <div className="result__bar">
-      <div
+      <motion.div
         className="result__bar-progress"
-        style={
-          countTotalTrue
-            ? {
-                width: `${(widthProgressBar / countTotalQuestions) * countTotalTrue}px`,
-              }
-            : { width: '0px' }
-        }
-      ></div>
+        initial={{ width: 0 }}
+        animate={{ width: `${progressPercentage}%` }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
+      ></motion.div>
     </div>
   );
 };
