@@ -1,5 +1,7 @@
+import { motion } from 'framer-motion';
 import ResultBarComponent from './ResultBarComponent';
 import { SelectComponent } from './SelectComponent';
+import { variants } from '../constants';
 
 interface StatisticsComponentProps {
   countTotalQuestions: number;
@@ -21,7 +23,7 @@ const StatisticsComponent = ({
   setState,
 }: StatisticsComponentProps) => {
   return (
-    <section>
+    <motion.section variants={variants} initial="hidden" animate="visible" exit="exit">
       <SelectComponent
         className={className}
         options={options}
@@ -36,7 +38,7 @@ const StatisticsComponent = ({
         <span> {countTotalTrue}</span>
       </p>
       <ResultBarComponent countTotalQuestions={countTotalQuestions} countTotalTrue={countTotalTrue} />
-    </section>
+    </motion.section>
   );
 };
 export default StatisticsComponent;

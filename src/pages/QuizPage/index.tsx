@@ -19,6 +19,8 @@ import {
   setCountTotalTrueType,
 } from '../../store/statisticsSlice';
 import { RootState } from '../../store/reducers';
+import { motion } from 'framer-motion';
+import { variants } from '../../constants';
 
 const QuizPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -57,15 +59,12 @@ const QuizPage = () => {
       dispatch(increaseTrueAnswers());
     }
     if (questionsIndex === questions.length - 1) {
-      if (isCorrect) {
-        dispatch(increaseTrueAnswers());
-      }
       navigate('/result');
       dispatch(setResultTime(Number(time) * 60 - seconds));
       dispatch(setCountTotalTrueAnswers(countTrueAnswers + (isCorrect ? 1 : 0)));
       dispatch(setCountTotalQuestions(questions.length));
-      dispatch(setCountTotalTrueCategory({ category: category, count: countTrueAnswers }));
-      dispatch(setCountTotalTrueDifficulty({ difficulty: difficulty, count: countTrueAnswers }));
+      dispatch(setCountTotalTrueCategory({ category: category, count: countTrueAnswers + (isCorrect ? 1 : 0) }));
+      dispatch(setCountTotalTrueDifficulty({ difficulty: difficulty, count: countTrueAnswers + (isCorrect ? 1 : 0) }));
       dispatch(setCountTotalTrueType({ type: type, count: countTrueAnswers }));
     } else {
       dispatch(increaseQuestionIndex());
@@ -115,17 +114,18 @@ const QuizPage = () => {
     return (
       <div className="error-page">
         <p>No questions for selected parameters. Try again...</p>
-        <p>
+        <motion.p whileHover={{ scale: 0.97 }}>
           <Link to="/" className={'back-btn'}>
             Back to settings
           </Link>
-        </p>
+        </motion.p>
       </div>
     );
   }
+
   return (
-    <div className="quiz-wrapper">
-      <section className="info-wrapper">
+    <motion.div className="quiz-wrapper" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+      <motion.section className="info-wrapper">
         <div className="progress-wrapper">
           <p>
             <i className="fa-solid fa-list-check"></i> {questionsIndex + 1}/{data.results.length}
@@ -137,14 +137,21 @@ const QuizPage = () => {
             {getMinutesSeconds(seconds).minText}:{getMinutesSeconds(seconds).secText}
           </p>
         </div>
-      </section>
+      </motion.section>
       <section className="question-wrapper">
         <p>
           <i className="fa-solid fa-clipboard-question"></i>
           {stripHtml(data.results[questionsIndex].question)}
         </p>
       </section>
-      <section className="answer-wrapper">
+      <motion.section
+        key={questionsIndex}
+        variants={variants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="answer-wrapper"
+      >
         {shuffledAnswers.map((answerOption, index) => (
           <InputComponent
             type="radio"
@@ -158,7 +165,7 @@ const QuizPage = () => {
             checked={answer.includes(stripHtml(answerOption as string))}
           />
         ))}
-      </section>
+      </motion.section>
       <section className="buttons-wrapper">
         <ButtonComponent
           className={'quit-btn'}
@@ -176,7 +183,7 @@ const QuizPage = () => {
         />
         <ModalComponent isOpen={modalIsOpen}>{modalContent}</ModalComponent>
       </section>
-    </div>
+    </motion.div>
   );
 };
 

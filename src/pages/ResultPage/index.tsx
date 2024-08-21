@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/reducers';
 import { resetConfig } from '../../store/configSlice';
 import useQuiz from '../../hooks/quizHook';
-import { getMinutesSeconds, stripHtml } from '../../utils';
+import { getMinutesSeconds } from '../../utils';
 import ResultBarComponent from '../../components/ResultBarComponent';
+import { motion } from 'framer-motion';
+import ResultComponent from '../../components/ResultComponent';
 
 const ResultPage = () => {
   const { amount, difficulty, type, time } = useSelector((state: RootState) => state.config);
@@ -16,27 +18,37 @@ const ResultPage = () => {
 
   return (
     <div className="result-wrapper">
-      <i className="fa-solid fa-list-check"></i>
+      <motion.i
+        className="fa-solid fa-list-check"
+        animate={{ y: 0, scale: 1.2 }}
+        whileHover={{ y: 10, scale: 1 }}
+        transition={{ duration: 1 }}
+      ></motion.i>
+
       <p>
-        You answered <span>{countTrueAnswers}</span> out of <span>{amount}</span> questions correctly <br />
-        in
-        <span> {getMinutesSeconds(resultTime).minText} </span> minutes
-        <span> {getMinutesSeconds(resultTime).secText} seconds</span>
+        You answered <ResultComponent value={countTrueAnswers.toString()} /> out of{' '}
+        <ResultComponent value={amount.toString()} /> questions correctly in{' '}
+        <ResultComponent value={getMinutesSeconds(resultTime).minText} /> minutes{' '}
+        <ResultComponent value={getMinutesSeconds(resultTime).secText} /> seconds
       </p>
       <ResultBarComponent countTotalQuestions={+amount} countTotalTrue={countTrueAnswers} />
 
       <section className="result-settings-wrapper">
         <p>
-          Category: <span>{stripHtml(questions[questionsIndex].category)}</span>
+          Category:
+          <ResultComponent value={questions[questionsIndex].category} />
         </p>
         <p>
-          Difficulty: <span>{difficulty}</span>
+          Difficulty:
+          <ResultComponent value={difficulty} />
         </p>
         <p>
-          Type: <span>{type}</span>
+          Type:
+          <ResultComponent value={type} />
         </p>
         <p>
-          Time: <span>{time} min</span>
+          Time:
+          <ResultComponent value={time} />
         </p>
       </section>
       <section className="buttons-wrapper">
