@@ -21,37 +21,23 @@ import {
 import { RootState } from '../../store/reducers';
 import { motion } from 'framer-motion';
 import { variants } from '../../constants';
+import useTime from '../../hooks/timeHooks';
 
 const QuizPage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { data, isFetching, questionsIndex, questions, resetQuiz, time, category, type, difficulty } = useQuiz();
+  const { seconds } = useTime();
   const countTrueAnswers = useSelector((state: RootState) => state.questions.countTrueAnswers);
-
   const [answer, setAnswer] = useState('');
   const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
-  const [seconds, setSeconds] = useState(Number(time) * 60);
 
   useEffect(() => {
     if (questions && questions.length > 0) {
       setShuffledAnswers(getAnswersOptions(questions[0]));
     }
   }, [countTrueAnswers, questions]);
-
-  useEffect(() => {
-    if (seconds <= 0) {
-      dispatch(setResultTime(Number(time) * 60 - seconds));
-      navigate('/result');
-      return;
-    }
-
-    const timerId = setInterval(() => {
-      setSeconds((prev) => prev - 1);
-    }, 1000);
-
-    return () => clearInterval(timerId);
-  }, [seconds, navigate, dispatch, time]);
 
   function nextAction() {
     const isCorrect = questions[questionsIndex].correct_answer === answer;
@@ -141,6 +127,7 @@ const QuizPage = () => {
       <section className="question-wrapper">
         <p>
           <i className="fa-solid fa-clipboard-question"></i>
+
           {stripHtml(data.results[questionsIndex].question)}
         </p>
       </section>
