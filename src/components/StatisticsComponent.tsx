@@ -32,6 +32,7 @@ const StatisticsComponent = ({
         onChange={(e) => {
           setState(e.target.value);
         }}
+        aria-label={text}
       />
       <p>
         Total correct answers
