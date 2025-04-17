@@ -37,7 +37,7 @@ const QuizPage = () => {
     if (questions && questions.length > 0) {
       setShuffledAnswers(getAnswersOptions(questions[0]));
     }
-  }, [countTrueAnswers, questions]);
+  }, [questions]);
 
   function nextAction() {
     const isCorrect = questions[questionsIndex].correct_answer === answer;
