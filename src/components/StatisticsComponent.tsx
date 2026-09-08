@@ -29,17 +29,15 @@ const StatisticsComponent = ({
         options={options}
         text={text}
         value={value}
-        onChange={(e) => {
-          setState(e.target.value);
-        }}
-        aria-label={text}
+        onChange={(e) => setState(e.target.value)}
       />
       <p>
         Total correct answers
-        <span> {countTotalTrue}</span>
+        <span> {countTotalTrue ?? 0}</span>
       </p>
-      <ResultBarComponent countTotalQuestions={countTotalQuestions} countTotalTrue={countTotalTrue} />
+      <ResultBarComponent countTotalQuestions={countTotalQuestions} countTotalTrue={countTotalTrue ?? 0} />
     </motion.section>
   );
 };
+
 export default StatisticsComponent;

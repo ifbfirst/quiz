@@ -1,4 +1,4 @@
-export const timeOptions = { '3 min': '3', '5  min': '5', '10  min': '10' };
+export const timeOptions = { '3 min': '3', '5 min': '5', '10 min': '10' };
 export const categoryOptions = {
   'General Knowledge': '9',
   'Entertainment: Books': '10',
@@ -28,10 +28,8 @@ export const categoryOptions = {
 export const difficultyOptions = { Easy: 'easy', Medium: 'medium', Hard: 'hard' };
 export const typeOptions = { 'Multiple choice': 'multiple', 'True / False': 'boolean' };
 
-export const widthProgressBar = 350;
-
 export const variants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 16 },
   visible: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -30 },
+  exit: { opacity: 0, y: -16 },
 };

@@ -19,7 +19,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     if (this.state.hasError) {
       return (
         <div className="error-page">
-          <p> OOPS...Seems like an error occurred!</p>
+          <p>OOPS...Seems like an error occurred!</p>
         </div>
       );
     }
@@ -27,4 +27,5 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     return this.props.children;
   }
 }
+
 export default ErrorBoundary;

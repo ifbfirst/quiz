@@ -1,63 +1,81 @@
 .statistics-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
-}
-.statistics-wrapper section {
-  padding: 20px;
-  background-color: var(--main-blue-light);
-  display: flex;
-  align-items: flex-end;
-  gap: 20px;
-  padding-bottom: 20px;
-  border: 1px solid var(--text-light);
-  font-size: 0.8em;
-}
-.statistics-wrapper p {
-  text-align: center;
-}
-.statistics-wrapper select {
-  width: 300px;
-  cursor: pointer;
-}
-.result__bar {
-  margin-bottom: 10px;
-}
-.back-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  height: 50px;
-  margin: 0 auto;
-  font-size: 0.8em;
-  color: var(--text-light);
-  background-color: var(--main-dark);
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
 }
 
-.back:hover {
-  background-color: var(--main-light-hover);
+.statistics-wrapper h2 {
+  text-align: center;
+}
+
+.statistics-wrapper section {
+  width: min(100%, 720px);
+  min-width: 0;
+  padding: 10px 14px;
+  background-color: var(--main-light);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-size: 0.88rem;
+}
+
+.statistics-wrapper p {
+  text-align: center;
+  flex: 1;
+}
+
+.statistics-wrapper .select-field {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+.statistics-wrapper select {
+  height: 36px;
+}
+
+.statistics-wrapper .result__bar {
+  width: 180px;
+  flex-shrink: 0;
+  margin: 0 0 6px;
 }
 
 .statistics-wrapper span {
-  font-size: 1.2em;
+  font-size: 1.1em;
   color: var(--main-dark);
-  font-weight: 800;
+  font-weight: 700;
 }
-.statistics-wrapper select {
-  height: 30px;
-  border: none;
-  box-shadow: 0px 0px 2px 0px var(--main-light-hover);
-  margin-top: 5px;
+
+.statistics-wrapper .btn-slot {
+  margin-top: 4px;
 }
-@media (max-width: 870px) {
+
+@media (max-width: 768px) {
+  .statistics-wrapper {
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
   .statistics-wrapper section {
+    width: 100%;
     flex-direction: column;
+    align-items: stretch;
+    padding: 10px 12px;
+    gap: 6px;
+  }
+
+  .statistics-wrapper select,
+  .statistics-wrapper .result__bar,
+  .statistics-wrapper .select-field {
+    width: 100%;
+  }
+
+  .statistics-wrapper .btn-slot {
+    width: 100%;
+    max-width: 320px;
   }
 }

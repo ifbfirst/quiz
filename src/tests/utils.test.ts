@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getMinutesSeconds, stripHtml } from '../utils';
+import { getAnswerOptions, getMinutesSeconds, shuffle, stripHtml } from '../utils';
 
 describe('Test stripHtml function', () => {
   it('should strip HTML tags from a string', () => {
@@ -44,5 +44,32 @@ describe('Test getMinutesSeconds function', () => {
     const seconds = 3661;
     const result = getMinutesSeconds(seconds);
     expect(result).toEqual({ minText: '61', secText: '01' });
+  });
+});
+
+describe('Test shuffle function', () => {
+  it('should keep the same items after shuffling', () => {
+    const items = ['a', 'b', 'c', 'd'];
+    const result = shuffle(items);
+
+    expect(result).toHaveLength(items.length);
+    expect(result.sort()).toEqual([...items].sort());
+    expect(result).not.toBe(items);
+  });
+});
+
+describe('Test getAnswerOptions function', () => {
+  it('should decode answers and include the correct option', () => {
+    const result = getAnswerOptions({
+      type: 'multiple',
+      difficulty: 'easy',
+      category: 'General Knowledge',
+      question: 'Who?',
+      correct_answer: 'Tom &amp; Jerry',
+      incorrect_answers: ['A', 'B', 'C'],
+    });
+
+    expect(result).toHaveLength(4);
+    expect(result).toContain('Tom & Jerry');
   });
 });
