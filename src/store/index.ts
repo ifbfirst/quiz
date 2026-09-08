@@ -25,4 +25,6 @@ setupListeners(store.dispatch);
 
 const persistor = persistStore(store);
 
+export type AppDispatch = typeof store.dispatch;
+
 export { store, persistor };

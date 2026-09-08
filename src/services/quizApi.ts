@@ -25,5 +25,5 @@ export const questionsApi = createApi({
     }),
   }),
 });
-export const useFetchPeopleQuery = questionsApi.endpoints.fetchQuestions
-  .useQuery as typeof questionsApi.endpoints.fetchQuestions.useQuery;
+
+export const { useFetchQuestionsQuery } = questionsApi;

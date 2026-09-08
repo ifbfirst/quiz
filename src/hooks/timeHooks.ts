@@ -1,28 +1,35 @@
 import { useEffect, useState } from 'react';
 import { setResultTime } from '../store/questionsSlice';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { RootState } from '../store/reducers';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 
-const useTime = () => {
+const useTime = (enabled = true) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { time } = useSelector((state: RootState) => state.config);
-  const [seconds, setSeconds] = useState(Number(time) * 60);
+  const dispatch = useAppDispatch();
+  const { time } = useAppSelector((state) => state.config);
+  const totalSeconds = Number(time) * 60;
+  const [seconds, setSeconds] = useState(totalSeconds);
 
   useEffect(() => {
-    if (seconds <= 0) {
-      dispatch(setResultTime(Number(time) * 60 - seconds));
-      navigate('/result');
+    if (!enabled) {
       return;
     }
 
-    const timerId = setInterval(() => {
-      setSeconds((prev) => prev - 1);
+    const timerId = window.setInterval(() => {
+      setSeconds((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
 
-    return () => clearInterval(timerId);
-  }, [seconds, navigate, dispatch, time]);
+    return () => window.clearInterval(timerId);
+  }, [enabled]);
+
+  useEffect(() => {
+    if (!enabled || seconds > 0) {
+      return;
+    }
+
+    dispatch(setResultTime(totalSeconds));
+    navigate('/result');
+  }, [dispatch, enabled, navigate, seconds, totalSeconds]);
 
   return {
     seconds,

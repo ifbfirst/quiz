@@ -1,42 +1,53 @@
 import './index.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ButtonComponent } from '../../components/ButtonComponent';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/reducers';
 import { resetConfig } from '../../store/configSlice';
 import useQuiz from '../../hooks/quizHook';
 import { getMinutesSeconds } from '../../utils';
 import ResultBarComponent from '../../components/ResultBarComponent';
 import { motion } from 'framer-motion';
 import ResultComponent from '../../components/ResultComponent';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 const ResultPage = () => {
-  const { amount, difficulty, type, time } = useSelector((state: RootState) => state.config);
+  const { amount, difficulty, type, time } = useAppSelector((state) => state.config);
   const { resetQuiz, countTrueAnswers, resultTime, questions, questionsIndex } = useQuiz();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const currentQuestion = questions[questionsIndex];
+  const { minText, secText } = getMinutesSeconds(resultTime);
+
+  if (!currentQuestion) {
+    return (
+      <div className="error-page">
+        <p>No quiz results to show.</p>
+        <Link to="/" className="back-btn">
+          Back to settings
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="result-wrapper">
       <motion.i
         className="fa-solid fa-list-check"
-        animate={{ y: 0, scale: 1.2 }}
-        whileHover={{ y: 10, scale: 1 }}
+        animate={{ y: 0, scale: 1.15 }}
+        whileHover={{ y: 8, scale: 1 }}
         transition={{ duration: 1 }}
       ></motion.i>
 
       <p>
         You answered <ResultComponent value={countTrueAnswers.toString()} /> out of{' '}
-        <ResultComponent value={amount.toString()} /> questions correctly in{' '}
-        <ResultComponent value={getMinutesSeconds(resultTime).minText} /> minutes{' '}
-        <ResultComponent value={getMinutesSeconds(resultTime).secText} /> seconds
+        <ResultComponent value={amount.toString()} /> questions correctly in <ResultComponent value={minText} /> minutes{' '}
+        <ResultComponent value={secText} /> seconds
       </p>
       <ResultBarComponent countTotalQuestions={+amount} countTotalTrue={countTrueAnswers} />
 
       <section className="result-settings-wrapper">
         <p>
           Category:
-          <ResultComponent value={questions[questionsIndex].category} />
+          <ResultComponent value={currentQuestion.category} />
         </p>
         <p>
           Difficulty:
@@ -53,16 +64,16 @@ const ResultPage = () => {
       </section>
       <section className="buttons-wrapper">
         <ButtonComponent
-          className={'restart-btn'}
-          text={'Restart quiz'}
+          className="restart-btn"
+          text="Restart quiz"
           onClick={() => {
             resetQuiz();
             navigate('/quiz');
           }}
         />
         <ButtonComponent
-          className={'choice-btn'}
-          text={'Choose another quiz'}
+          className="choice-btn"
+          text="Choose another quiz"
           onClick={() => {
             resetQuiz();
             dispatch(resetConfig());

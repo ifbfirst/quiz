@@ -6,17 +6,19 @@ type SelectProps = {
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
-export const SelectComponent = (props: SelectProps) => {
+export const SelectComponent = ({ className, options, text, value, onChange }: SelectProps) => {
   return (
-    <div className={props.className}>
-      <div>Choose {props.text}</div>
-      <select value={props.value} onChange={props.onChange}>
-        {Object.entries(props.options).map(([key, value]) => (
-          <option key={key} value={value}>
-            {key}
-          </option>
-        ))}
-      </select>
+    <div className={className}>
+      <div className="field-label">Choose {text}</div>
+      <div className="select-field">
+        <select value={value} onChange={onChange} aria-label={text}>
+          {Object.entries(options).map(([key, optionValue]) => (
+            <option key={key} value={optionValue}>
+              {key}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 };

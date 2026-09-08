@@ -20,7 +20,7 @@ export const questionsSlice = createSlice({
   initialState,
   reducers: {
     setQuestions(state, action: PayloadAction<QuestionsResponse[]>) {
-      state.questions = [...(state.questions || []), ...action.payload];
+      state.questions = action.payload;
     },
     increaseQuestionIndex(state) {
       state.questionsIndex += 1;
@@ -29,7 +29,7 @@ export const questionsSlice = createSlice({
       state.questionsIndex = 0;
     },
     resetQuestions(state) {
-      state.questions.length = 0;
+      state.questions = [];
     },
     increaseTrueAnswers(state) {
       state.countTrueAnswers += 1;
@@ -39,6 +39,9 @@ export const questionsSlice = createSlice({
     },
     setResultTime(state, action: PayloadAction<number>) {
       state.resultTime = action.payload;
+    },
+    resetQuizState() {
+      return initialState;
     },
   },
 });
@@ -51,6 +54,7 @@ export const {
   increaseTrueAnswers,
   setResultTime,
   resetTrueAnswers,
+  resetQuizState,
 } = questionsSlice.actions;
 
 export const questionsReducer = questionsSlice.reducer;

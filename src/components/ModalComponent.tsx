@@ -1,20 +1,15 @@
 import { ReactNode } from 'react';
+import classNames from 'classnames';
 
 type ModalProps = {
   isOpen: boolean;
   children: ReactNode;
 };
-import classNames from 'classnames';
 
-const ModalComponent = (props: ModalProps) => {
+const ModalComponent = ({ isOpen, children }: ModalProps) => {
   return (
-    <div
-      className={classNames({
-        active: props.isOpen,
-        'modal-bg': true,
-      })}
-    >
-      <div className={'modal'}>{props.children}</div>
+    <div className={classNames('modal-bg', { active: isOpen })}>
+      <div className="modal">{children}</div>
     </div>
   );
 };

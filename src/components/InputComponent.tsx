@@ -8,23 +8,40 @@ type InputProps = {
   value?: string;
   placeholder?: string;
   checked?: boolean;
+  min?: number;
+  max?: number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const InputComponent = (props: InputProps) => {
+export const InputComponent = ({
+  className,
+  id,
+  text,
+  labelText,
+  type = 'text',
+  name,
+  value,
+  placeholder,
+  checked,
+  min,
+  max,
+  onChange,
+}: InputProps) => {
   return (
-    <div className={props.className}>
-      <div>{props.text}</div>
+    <div className={className}>
+      {text ? <div className="field-label">{text}</div> : null}
       <input
-        type={props.type}
-        id={props.id}
-        name={props.name}
-        placeholder={props.placeholder}
-        onChange={props.onChange}
-        value={props.value}
-        checked={props.checked}
+        type={type}
+        id={id}
+        name={name}
+        placeholder={placeholder}
+        onChange={onChange}
+        value={value}
+        checked={checked}
+        min={min}
+        max={max}
       />
-      <label htmlFor={props.id}>{props.labelText}</label>
+      {labelText ? <label htmlFor={id}>{labelText}</label> : null}
     </div>
   );
 };

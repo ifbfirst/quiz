@@ -18,6 +18,7 @@ const router = createBrowserRouter([
         <Outlet />
       </ErrorBoundary>
     ),
+    errorElement: <ErrorPage />,
     children: [
       {
         path: '/',
@@ -44,16 +45,19 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <div className="app">
-    <header className="header">
-      <h1>Quiz</h1>
-    </header>
-    <main className="main">
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <div className="app">
+        <header className="header">
+          <div className="header-brand">
+            <span className="header-mark">?</span>
+            <h1>Quiz</h1>
+          </div>
+        </header>
+        <main className="main">
           <RouterProvider router={router} />
-        </PersistGate>
-      </Provider>
-    </main>
-  </div>,
+        </main>
+      </div>
+    </PersistGate>
+  </Provider>,
 );
